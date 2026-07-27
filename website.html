@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沙海星火实践队 - 支教日记</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; background: #faf8f5; color: #2c3e50; overflow-x: hidden; }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #e67e22; border-radius: 10px; }
+
+        /* CSS 变量 */
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --primary-light: #fdebd0;
+            --accent: #2ecc71;
+            --accent2: #3498db;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg: #faf8f5;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.12);
+            --radius: 20px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 8%; background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(230,126,34,0.1);
+            transition: var(--transition);
+        }
+        .navbar.scrolled { padding: 10px 8%; box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+        .logo {
+            font-size: 22px; font-weight: 800; letter-spacing: 1px;
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo i { -webkit-text-fill-color: #e67e22; margin-right: 8px; }
+        .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: #555; font-weight: 600; font-size: 15px;
+            padding: 10px 20px; border-radius: 50px; transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12);
+            box-shadow: 0 6px 20px rgba(230,126,34,0.3);
+        }
+        .nav-toggle { display: none; font-size: 24px; cursor: pointer; color: #555; background: none; border: none; }
+
+        /* Hero 区域 */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; padding: 120px 8% 80px;
+            background: linear-gradient(160deg, #fdfcf8 0%, #f8f1e5 30%, #fef9f1 60%, #fdfbf7 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -200px; right: -150px;
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(230,126,34,0.08) 0%, transparent 70%);
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -100px; left: -100px;
+            width: 400px; height: 400px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(46,204,113,0.06) 0%, transparent 70%);
+        }
+        .hero-content {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 60px; max-width: 1200px; width: 100%; position: relative; z-index: 1;
+        }
+        .hero-text { flex: 1; }
+        .hero-badge {
+            display: inline-block; padding: 8px 20px; background: var(--primary-light);
+            color: var(--primary); border-radius: 50px; font-size: 14px; font-weight: 600;
+            margin-bottom: 24px; letter-spacing: 1px;
+        }
+        .hero-text h1 { font-size: 56px; line-height: 1.2; margin-bottom: 24px; color: #1a1a2e; }
+        .hero-text h1 .highlight {
+            color: var(--primary); position: relative;
+            display: inline-block;
+        }
+        .hero-text h1 .highlight::after {
+            content: ''; position: absolute; bottom: 4px; left: 0; width: 100%;
+            height: 12px; background: var(--primary-light); z-index: -1; border-radius: 4px;
+        }
+        .hero-text p {
+            font-size: 18px; color: var(--text-light); line-height: 1.9; max-width: 520px; margin-bottom: 36px;
+        }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 15px 36px; font-size: 16px; font-weight: 700;
+            border-radius: 50px; text-decoration: none; cursor: pointer;
+            transition: var(--transition); border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            color: #fff; box-shadow: 0 8px 25px rgba(230,126,34,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(230,126,34,0.45); }
+        .btn-outline {
+            background: transparent; color: var(--primary);
+            border: 2px solid var(--primary-light);
+        }
+        .btn-outline:hover { background: var(--primary-light); transform: translateY(-3px); }
+        .hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+        .hero-card {
+            width: 380px; height: 460px; background: #fff; border-radius: 28px;
+            box-shadow: var(--shadow); overflow: hidden; position: relative;
+            transform: rotate(2deg); transition: var(--transition);
+        }
+        .hero-card:hover { transform: rotate(0deg) translateY(-8px); box-shadow: var(--shadow-hover); }
+        .hero-card-top {
+            height: 55%; background: linear-gradient(135deg, #f6d365, #fda085);
+            display: flex; align-items: center; justify-content: center; font-size: 72px;
+        }
+        .hero-card-bottom { padding: 28px; }
+        .hero-card-bottom h3 { font-size: 18px; margin-bottom: 8px; color: #1a1a2e; }
+        .hero-card-bottom p { font-size: 14px; color: var(--text-light); }
+        .floating-badge {
+            position: absolute; top: -15px; right: -10px;
+            background: #fff; padding: 10px 18px; border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); font-weight: 700; font-size: 14px;
+            color: var(--primary); z-index: 2;
+        }
+
+        /* 数据统计 */
+        .stats {
+            padding: 0 8% 80px; position: relative; z-index: 1; margin-top: -40px;
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+            max-width: 1000px; margin: 0 auto;
+        }
+        .stat-card {
+            background: #fff; border-radius: var(--radius); padding: 36px 24px;
+            text-align: center; box-shadow: var(--shadow); transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+        .stat-icon { font-size: 36px; margin-bottom: 12px; }
+        .stat-number { font-size: 42px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .stat-label { font-size: 15px; color: var(--text-light); font-weight: 500; }
+
+        /* 日记时间线 */
+        .timeline-section { padding: 80px 8%; background: #fff; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label {
+            display: inline-block; padding: 6px 18px; background: var(--primary-light);
+            color: var(--primary); border-radius: 50px; font-size: 13px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+        }
+        .section-header h2 { font-size: 38px; color: #1a1a2e; margin-bottom: 12px; }
+        .section-header p { color: var(--text-light); font-size: 17px; max-width: 500px; margin: 0 auto; }
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; min-height: 60px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 100%; background: linear-gradient(to bottom, var(--primary-light), var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+        .timeline-item {
+            display: flex; align-items: center; margin-bottom: 48px; position: relative;
+        }
+        .timeline-item:nth-child(odd) { flex-direction: row; }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+        .timeline-dot {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 48px; height: 48px; background: #fff; border: 3px solid var(--primary);
+            border-radius: 50%; z-index: 2; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--primary); box-shadow: 0 4px 15px rgba(230,126,34,0.2);
+        }
+        .timeline-content {
+            width: 42%; background: #fff; padding: 28px; border-radius: var(--radius);
+            box-shadow: var(--shadow); transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .timeline-content:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+        .timeline-date { font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 8px; }
+        .timeline-content h3 { font-size: 18px; margin-bottom: 10px; color: #1a1a2e; }
+        .timeline-content p { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+        .timeline-content ul {
+            list-style: none; padding: 0; margin: 12px 0 0;
+        }
+        .timeline-content ul li {
+            font-size: 13px; color: var(--text-light); line-height: 1.8;
+            padding-left: 16px; position: relative;
+        }
+        .timeline-content ul li::before {
+            content: ''; position: absolute; left: 0; top: 10px;
+            width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
+        }
+        .timeline-tag {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 600; margin-top: 14px;
+        }
+        .tag-prep { background: #fff3e0; color: #e65100; }
+        .tag-open { background: #e8f5e9; color: #2e7d32; }
+        .tag-safety { background: #e3f2fd; color: #1565c0; }
+        .tag-psych { background: #fce4ec; color: #c62828; }
+        .tag-science { background: #e8f5e9; color: #2e7d32; }
+        .tag-patriot { background: #fbe9e7; color: #bf360c; }
+        .tag-tech { background: #e0f2f1; color: #00695c; }
+        .tag-music { background: #f3e5f5; color: #6a1b9a; }
+        .tag-geo { background: #e0f7fa; color: #00838f; }
+        .tag-culture { background: #eceff1; color: #37474f; }
+        .tag-folk { background: #fff8e1; color: #f57f17; }
+        .tag-compete { background: #fff3e0; color: #e65100; }
+        .tag-sport { background: #f1f8e9; color: #33691e; }
+        .tag-close { background: #fce4ec; color: #ad1457; }
+        .timeline-phase {
+            text-align: center; font-size: 15px; font-weight: 700;
+            color: var(--primary); padding: 16px 0; margin: 20px auto 12px;
+            max-width: 800px; letter-spacing: 2px;
+        }
+
+        /* 团队介绍 */
+        .team-section { padding: 80px 8%; background: var(--bg); }
+        .team-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px; max-width: 1100px; margin: 0 auto;
+        }
+        .team-card {
+            background: #fff; border-radius: var(--radius); padding: 36px 24px; text-align: center;
+            box-shadow: var(--shadow); transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .team-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0); transition: var(--transition);
+        }
+        .team-card:hover::before { transform: scaleX(1); }
+        .team-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .team-avatar {
+            width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            display: flex; align-items: center; justify-content: center; font-size: 40px;
+        }
+        .team-card h3 { font-size: 18px; margin-bottom: 4px; color: #1a1a2e; }
+        .team-role { color: var(--primary); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+        .team-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+        .team-socials { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+        .team-socials a {
+            width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; background: #f5f5f5; color: #777; text-decoration: none;
+            transition: var(--transition); font-size: 14px;
+        }
+        .team-socials a:hover { background: var(--primary); color: #fff; }
+
+        /* 照片画廊 */
+        .gallery-section { padding: 80px 8%; background: #fff; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+            max-width: 1100px; margin: 0 auto;
+        }
+        .gallery-item {
+            border-radius: var(--radius); overflow: hidden; position: relative;
+            aspect-ratio: 1; cursor: pointer; box-shadow: var(--shadow);
+        }
+        .gallery-item:nth-child(1) { grid-row: span 2; }
+        .gallery-item:nth-child(4) { grid-column: span 2; aspect-ratio: 2/1; }
+        .gallery-img {
+            width: 100%; height: 100%; object-fit: cover;
+            background: linear-gradient(135deg, #d5c4b1, #bdc3c7, #aab7b8, #bdc3c7);
+            transition: var(--transition);
+        }
+        .gallery-item:hover .gallery-img { transform: scale(1.08); }
+        .gallery-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+            display: flex; align-items: flex-end; padding: 24px; opacity: 0; transition: var(--transition);
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay span { color: #fff; font-weight: 700; font-size: 16px; }
+
+        /* CTA 区域 */
+        .cta-section {
+            padding: 100px 8%; text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff; position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(230,126,34,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(46,204,113,0.08) 0%, transparent 50%);
+            animation: ctaPulse 8s ease-in-out infinite;
+        }
+        @keyframes ctaPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .cta-content { position: relative; z-index: 1; }
+        .cta-section h2 { font-size: 40px; margin-bottom: 20px; }
+        .cta-section p { font-size: 18px; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 36px; }
+        .cta-section .btn-primary { background: linear-gradient(135deg, #e67e22, #f39c12); box-shadow: 0 10px 30px rgba(230,126,34,0.4); }
+
+        /* 页脚 */
+        .footer {
+            padding: 50px 8%; background: #1a1a2e; color: #fff; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 20px;
+        }
+        .footer-links { display: flex; gap: 30px; }
+        .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; transition: var(--transition); font-size: 15px; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-socials { display: flex; gap: 16px; }
+        .footer-socials a {
+            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; background: rgba(255,255,255,0.08); color: #fff;
+            text-decoration: none; transition: var(--transition); font-size: 18px;
+        }
+        .footer-socials a:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-copy { color: rgba(255,255,255,0.4); font-size: 14px; }
+
+        /* 淡入动画 */
+        .fade-in {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero-text p { max-width: 100%; }
+            .hero-buttons { justify-content: center; }
+            .hero-text h1 { font-size: 42px; }
+            .hero-card { width: 300px; height: 380px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline::before { left: 24px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; }
+            .timeline-dot { left: 24px; }
+            .timeline-content { width: calc(100% - 60px); margin-left: 60px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: #fff; flex-direction: column; padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .hero-text h1 { font-size: 32px; }
+            .hero-card { width: 260px; height: 330px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item:nth-child(1) { grid-row: auto; }
+            .gallery-item:nth-child(4) { grid-column: auto; aspect-ratio: 1; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .cta-section h2 { font-size: 28px; }
+            .section-header h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="logo"><i class="fa-solid fa-book-open"></i>沙海星火</div>
+        <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="active">首页</a>
+            <a href="#stats">成果</a>
+            <a href="#timeline">日记</a>
+            <a href="#team">团队</a>
+            <a href="#gallery">影像</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text fade-in">
+                <div class="hero-badge"><i class="fa-solid fa-location-dot"></i> 2026 · 暑期社会实践</div>
+                <h1>把<span class="highlight">世界</span>带进山里</h1>
+                <p>跨越山川，奔赴热爱。沙海星火实践队走进大山深处，用半个月的时间，为孩子们打开一扇看世界的窗，种下一颗关于未来的种子。</p>
+                <div class="hero-buttons">
+                    <a href="#timeline" class="btn btn-primary"><i class="fa-solid fa-book"></i> 查看支教日记</a>
+                    <a href="#stats" class="btn btn-outline"><i class="fa-solid fa-chart-simple"></i> 了解我们</a>
+                </div>
+            </div>
+            <div class="hero-visual fade-in">
+                <div class="hero-card">
+                    <div class="hero-card-top">📚</div>
+                    <div class="hero-card-bottom">
+                        <h3>大山里的课堂</h3>
+                        <p>每一双渴望知识的眼睛，都是我们前行的动力。</p>
+                    </div>
+                    <div class="floating-badge">✨ 2026暑期实践</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计 -->
+    <section class="stats fade-in" id="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👨‍🏫</div>
+                <div class="stat-number counter" data-target="8">0</div>
+                <div class="stat-label">实践队成员</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏫</div>
+                <div class="stat-number counter" data-target="1">0</div>
+                <div class="stat-label">合作学校</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-number counter" data-target="156">0</div>
+                <div class="stat-label">授课课时</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🧒</div>
+                <div class="stat-number counter" data-target="30">0</div>
+                <div class="stat-label">受益学生</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 日记时间线 -->
+    <section class="timeline-section fade-in" id="timeline">
+        <div class="section-header">
+            <div class="section-label">支教日记</div>
+            <h2>我们在一起的每一天</h2>
+            <p>从筹备到结营，十四个日夜，无数个感动瞬间</p>
+        </div>
+
+        <!-- 筹备阶段分隔 -->
+        <div class="timeline-phase">📦 筹备阶段</div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-clipboard-list"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月26日</div>
+                    <h3>出发前的全面筹备</h3>
+                    <ul>
+                        <li>队长及外联组与实践地负责人对接，了解实践地情况及往年问题，制定应急预案</li>
+                        <li>召开队内会议，明确分工，复盘往年实践团经验教训</li>
+                        <li>物资采集：体育器材、应急药品（碘伏/酒精/感冒药）、礼物（书本/玩具/零食）、棋类、实验器材</li>
+                        <li>准备手工+非手工礼物，初步选定晚会等活动方案</li>
+                        <li>设计微电影剧本及素质拓展方案（科学实验/体育活动/文娱）</li>
+                        <li>程序开发组开发教学小程序，搜集教学软件资源</li>
+                    </ul>
+                    <span class="timeline-tag tag-prep">📋 筹备</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实践阶段分隔 -->
+        <div class="timeline-phase">🚀 实践阶段</div>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-gift"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月27日</div>
+                    <h3>初见·你好大山</h3>
+                    <ul>
+                        <li>分发礼物，与负责人深入了解孩子们具体情况</li>
+                        <li>分好行政班，开展第一次素质拓展课程</li>
+                        <li>照片与视频采集同步启动，运营平台宣传上线</li>
+                        <li>召开队内会议汇总学生情况，调整活动方案，明确后续教学任务</li>
+                    </ul>
+                    <span class="timeline-tag tag-open">🎯 开营</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月28日</div>
+                    <h3>安全第一课</h3>
+                    <ul>
+                        <li>带领孩子们出早操、早读，养成良好作息</li>
+                        <li>利用自制小程序和教学软件提供课业辅导，讲解古诗词等传统文化</li>
+                        <li>开展网络安全教育及生活安全宣传，提升防范意识</li>
+                        <li>孩子们自愿选定活动内容及分组</li>
+                    </ul>
+                    <span class="timeline-tag tag-safety">🛡️ 安全</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-heart"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月29日</div>
+                    <h3>心灵对话与实地调研</h3>
+                    <ul>
+                        <li>开展心理教育课程，关注留守儿童心理健康</li>
+                        <li>实地调研走访，深入了解当地风土人情</li>
+                        <li>与北京心路社团联动交流</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-psych">💚 心理</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-flask"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月30日</div>
+                    <h3>物理魔法 & 历史回响</h3>
+                    <ul>
+                        <li>展示物理实验的魅力，现场演示趣味实验</li>
+                        <li>讲述中国近代史故事，播撒家国情怀</li>
+                        <li>教孩子们下象棋等益智游戏，寓教于乐</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-science">🔬 科学+历史</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-flag"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">7月31日</div>
+                    <h3>爱国教育 & 篮球初体验</h3>
+                    <ul>
+                        <li>爱党爱国与国防安全教育，激发爱国热情与国防意识</li>
+                        <li>教孩子们学习篮球基本动作</li>
+                        <li>学业辅导</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-patriot">🇨🇳 国防</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-video"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月1日</div>
+                    <h3>访谈·影像·AI启蒙</h3>
+                    <ul>
+                        <li>与当地负责人深度访谈并撰写访谈记录</li>
+                        <li>微电影正式开机拍摄</li>
+                        <li>教授AI工具正确使用方法，强调个人创作价值的不可替代性</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-tech">🤖 科技</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-music"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月2日</div>
+                    <h3>童谣里的童年</h3>
+                    <ul>
+                        <li>与孩子一对一访谈，书写访谈记录</li>
+                        <li>基础音乐知识教学，学唱经典童谣</li>
+                        <li>学业辅导</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-music">🎵 音乐</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-earth-asia"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月3日</div>
+                    <h3>看世界·地理之旅</h3>
+                    <ul>
+                        <li>地理知识科普，打开孩子们对世界的想象</li>
+                        <li>微电影拍摄制作持续推进</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-geo">🌏 地理</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-film"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月4日</div>
+                    <h3>光影里的成长</h3>
+                    <ul>
+                        <li>带领孩子们鉴赏一部经典电影，启发思考</li>
+                        <li>学业辅导</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-culture">🎬 影视</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-drum"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月5日</div>
+                    <h3>民俗音韵 & 云端分享</h3>
+                    <ul>
+                        <li>教授民俗乐器入门，快速上手体验</li>
+                        <li>与其他社会实践团合作，邀请优秀成员线上分享经验</li>
+                        <li>微电影拍摄继续推进</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-folk">🪕 民俗</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-laptop-code"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月6日</div>
+                    <h3>代码世界 & 羽球飞扬</h3>
+                    <ul>
+                        <li>计算机基础知识教学，开启数字化视野</li>
+                        <li>羽毛球友谊赛，汗水中的欢笑</li>
+                        <li>学业辅导</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-tech">💻 计算机</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-trophy"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月7日</div>
+                    <h3>脑力激荡 & 生命之问</h3>
+                    <ul>
+                        <li>举办百科知识大赛，检验两周学习成果</li>
+                        <li>篮球进阶教学，感受体育精神</li>
+                        <li>"生命的意义"主题班会，引导深度思考与对话</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-compete">🏆 竞赛</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-medal"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月8日</div>
+                    <h3>小小运动会 · 大大梦想</h3>
+                    <ul>
+                        <li>学业辅导收尾</li>
+                        <li>向孩子们宣传北京科技大学，播下大学梦的种子</li>
+                        <li>举办小型运动会并举行颁奖仪式</li>
+                        <li>当日例会总结</li>
+                    </ul>
+                    <span class="timeline-tag tag-sport">🏅 运动会</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"><i class="fa-solid fa-star"></i></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">8月9日</div>
+                    <h3>不说再见 · 结营</h3>
+                    <ul>
+                        <li>结营仪式：回顾、感恩与祝福</li>
+                        <li>召开总结大会，回顾两周历程，沉淀感悟</li>
+                    </ul>
+                    <span class="timeline-tag tag-close">✨ 结营</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 团队介绍 -->
+    <section class="team-section fade-in" id="team">
+        <div class="section-header">
+            <div class="section-label">我们的团队</div>
+            <h2>沙海星火实践队</h2>
+            <p>八人成行，奔赴山海</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">🎓</div>
+                <h3>殷楷棋</h3>
+                <div class="team-role">队长</div>
+                <p>"授人以鱼，不如授人以渔。一个超级热情乐观、热衷教学的学生，主要负责统筹教学任务和音乐方面课程的教学。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">✍️</div>
+                <h3>郭塞璇</h3>
+                <div class="team-role">文案组</div>
+                <p>"性格开放，主要负责社会实践文案宣传，用文字传递我们的故事。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">📝</div>
+                <h3>肖臻峰</h3>
+                <div class="team-role">文案组</div>
+                <p>"性格乐观，负责文案宣传，将实践过程以文字的方式记录下来。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">💻</div>
+                <h3>李学伟</h3>
+                <div class="team-role">程序设计组</div>
+                <p>"热爱编程，有点话痨属性，希望能和大家一起进步。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">🎬</div>
+                <h3>张俊豪</h3>
+                <div class="team-role">设计组</div>
+                <p>"性格随和乐观，主要负责视频剪辑，用影像记录每一个精彩瞬间。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">🤝</div>
+                <h3>白云青</h3>
+                <div class="team-role">外联组</div>
+                <p>"性格外向大方，负责交流合作，用愉快的帮助完善队伍任务。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">📷</div>
+                <h3>余涛</h3>
+                <div class="team-role">摄影组</div>
+                <p>"负责活动跟拍和影像记录，用快门定格实践队的每一个高光瞬间。"</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">🖥️</div>
+                <h3>蔡林泽</h3>
+                <div class="team-role">程序设计组</div>
+                <p>"开朗乐观、性格外向，负责编程相关工作，认真落实每项工作，和大家一起创造难忘回忆。"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 照片画廊 -->
+    <section class="gallery-section fade-in" id="gallery">
+        <div class="section-header">
+            <div class="section-label">影像记忆</div>
+            <h2>定格温暖瞬间</h2>
+            <p>每一张照片背后，都有一个故事</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #f6d365, #fda085); display: flex; align-items: center; justify-content: center; font-size: 48px;">📖</div>
+                <div class="gallery-overlay"><span>教室里的早读课</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #a1c4fd, #c2e9fb); display: flex; align-items: center; justify-content: center; font-size: 48px;">⚽</div>
+                <div class="gallery-overlay"><span>操场上的趣味运动会</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #fbc2eb, #a6c1ee); display: flex; align-items: center; justify-content: center; font-size: 48px;">🎒</div>
+                <div class="gallery-overlay"><span>出发前物资准备</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #84fab0, #8fd3f4); display: flex; align-items: center; justify-content: center; font-size: 48px;">🌄</div>
+                <div class="gallery-overlay"><span>山间的晨光与希望</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #ffecd2, #fcb69f); display: flex; align-items: center; justify-content: center; font-size: 48px;">🎨</div>
+                <div class="gallery-overlay"><span>孩子们的艺术作品</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: linear-gradient(135deg, #d4fc79, #96e6a1); display: flex; align-items: center; justify-content: center; font-size: 48px;">🤝</div>
+                <div class="gallery-overlay"><span>离别时的约定</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content fade-in">
+            <h2>和我们一起，点亮更多可能</h2>
+            <p>加入支教行列，或为孩子们捐赠一本书。每一份善意，都能让大山的星空更亮一些。</p>
+            <a href="#" class="btn btn-primary"><i class="fa-solid fa-hand-holding-heart"></i> 加入我们</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#home">首页</a>
+            <a href="#timeline">日记</a>
+            <a href="#team">团队</a>
+            <a href="#gallery">影像</a>
+        </div>
+        <div class="footer-socials">
+            <a href="#"><i class="fa-brands fa-weixin"></i></a>
+            <a href="#"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-copy">© 2026 沙海星火实践队 · 用技术连接远方 · Made with ❤️</p>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // 移动端菜单
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // 导航高亮
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id'); });
+            navItems.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // 数字滚动动画
+        const counters = document.querySelectorAll('.counter');
+        const animateCounter = (el) => {
+            const target = +el.getAttribute('data-target');
+            const duration = 2000;
+            const start = performance.now();
+            const tick = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.floor(eased * target);
+                if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        };
+
+        // 淡入动画观察器
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const counterAnimated = new WeakSet();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.querySelectorAll('.counter').forEach(c => {
+                        if (!counterAnimated.has(c)) {
+                            counterAnimated.add(c);
+                            animateCounter(c);
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        fadeEls.forEach(el => observer.observe(el));
+
+        // 立即给已可见的元素添加可见状态
+        fadeEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('visible');
+                el.querySelectorAll('.counter').forEach(c => {
+                    if (!counterAnimated.has(c)) {
+                        counterAnimated.add(c);
+                        animateCounter(c);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
