@@ -157,10 +157,12 @@
             background-clip: text;
         }
         .logo i { color: #e67e22; margin-right: 6px; }
-        .nav-links { display: none; align-items: center; gap: 4px; list-style: none; }
-        .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
-            background: rgba(255,255,255,0.98); padding: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .nav-links { display: flex; flex-direction: column; align-items: center; gap: 4px; list-style: none;
+            position: absolute; top: 100%; left: 0; right: 0; background: rgba(255,255,255,0.98);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-height: 0; opacity: 0; overflow: hidden;
+            padding: 0 16px; pointer-events: none;
+            transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease; }
+        .nav-links.open { max-height: 500px; opacity: 1; padding: 16px; pointer-events: auto; }
         .nav-links a {
             text-decoration: none; color: #555; font-weight: 600; font-size: 15px;
             padding: 10px 20px; border-radius: 50px; transition: var(--transition);
@@ -200,14 +202,14 @@
         .hero-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .btn {
             display: inline-flex; align-items: center; gap: 6px;
-            padding: 11px 24px; font-size: 14px; font-weight: 700;
+            padding: 11px 24px; font-size: 14px; font-weight: 700; white-space: nowrap;
             border-radius: 50px; text-decoration: none; cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.4s ease;
             border: none; position: relative; overflow: hidden;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #ef4444, #3b82f6);
-            color: #fff; box-shadow: 0 6px 20px rgba(239,68,68,0.35);
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: #fff; box-shadow: 0 6px 20px rgba(59,130,246,0.35);
         }
         .btn-outline {
             background: transparent; color: var(--primary);
@@ -388,22 +390,37 @@
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
             max-width: 1100px; margin: 0 auto;
+            grid-auto-flow: dense;
         }
         .gallery-item {
             border-radius: var(--radius); overflow: hidden; position: relative;
-            aspect-ratio: 1; box-shadow: var(--shadow);
+            box-shadow: var(--shadow); cursor: pointer; min-height: 120px;
         }
-        .gallery-item:nth-child(1) { grid-row: auto; }
-        .gallery-item:nth-child(4) { grid-column: auto; aspect-ratio: 1; }
-        .gallery-img {
-            width: 100%; height: 100%; object-fit: cover;
-            background: linear-gradient(135deg, #d5c4b1, #bdc3c7, #aab7b8, #bdc3c7);
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
         }
         .gallery-overlay {
             position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
-            display: flex; align-items: flex-end; padding: 12px;
+            display: flex; align-items: flex-end; padding: 12px; opacity: 0; transition: opacity 0.4s ease;
         }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
         .gallery-overlay span { color: #fff; font-weight: 700; font-size: 13px; }
+
+        /* 灯箱 */
+        .lightbox {
+            display: none; position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox-close {
+            position: absolute; top: 16px; right: 24px;
+            font-size: 40px; color: #fff; background: none; border: none;
+            cursor: pointer; z-index: 2001;
+        }
+        .lightbox-img {
+            max-width: 90vw; max-height: 85vh; object-fit: contain;
+            border-radius: 12px; box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
 
         /* CTA 区域 */
         .cta-section {
@@ -442,12 +459,14 @@
         .timeline-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .timeline-item.revealed { opacity: 1; transform: translateY(0); }
 
-        /* ===== 桌面增强 ===== */
-        @media (min-width: 769px) {
+        /* ===== 平板增强（769–1024） ===== */
+        @media (min-width: 769px) and (max-width: 1024px) {
             .navbar { padding: 14px 8%; }
             .logo { font-size: 22px; }
-            .nav-links { display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none; }
-            .nav-links.open { flex-direction: row; position: static; background: none; padding: 0; box-shadow: none; }
+            .nav-links { display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+                max-height: none; opacity: 1; overflow: visible; pointer-events: auto; transition: none; }
+            .nav-links.open { flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+                max-height: none; opacity: 1; }
             .nav-links a { width: auto; }
             .nav-links a:hover, .nav-links a.active { color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12); }
             .nav-toggle { display: none; }
@@ -495,10 +514,10 @@
             .bg-quote { font-size: 18px; padding: 24px 32px; }
             .bg-themes { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .bg-theme-card { padding: 24px 20px; }
-            .bg-theme-card:hover { transform: translateY(-4px); }
+            .bg-theme-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
             .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
             .stat-card { padding: 28px 20px; }
-            .stat-card:hover { transform: translateY(-4px); }
+            .stat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
             .stat-number { font-size: 36px; }
             .stat-icon { font-size: 32px; }
             .stat-label { font-size: 14px; }
@@ -512,42 +531,253 @@
             .timeline-content ul li { font-size: 13px; }
             .timeline-phase { font-size: 14px; }
             .leaders-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-            .leader-card { padding: 28px 24px; }
-            .leader-card:hover { transform: translateY(-4px); }
+            .leader-card:last-child { grid-column: span 2; }
+            .leader-card { padding: 28px 24px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+            .leader-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
             .leader-avatar { width: 72px; height: 72px; }
             .leader-card h3 { font-size: 18px; }
             .leader-card p { font-size: 14px; }
             .team-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-            .team-card { padding: 28px 20px; }
-            .team-card:hover { transform: translateY(-4px); }
+            .team-card { padding: 28px 20px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+            .team-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
             .team-avatar { width: 80px; height: 80px; }
             .team-card h3 { font-size: 17px; }
             .team-card p { font-size: 14px; }
             .team-epilogue { font-size: 14px; }
             .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-            .gallery-item:nth-child(1) { grid-row: span 2; }
-            .gallery-item:nth-child(4) { grid-column: span 2; aspect-ratio: 2/1; }
             .gallery-item:hover { transform: scale(1.02); }
             .gallery-overlay { opacity: 0; padding: 20px; }
             .gallery-item:hover .gallery-overlay { opacity: 1; }
             .gallery-overlay span { font-size: 15px; }
             .timeline-item { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
             .timeline-item.revealed { opacity: 1; transform: translateY(0); }
+            .btn::after {
+                content: ''; position: absolute; top: 0; left: -100%;
+                width: 100%; height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+                transition: left 0.5s ease;
+            }
+            .btn:hover::after { left: 100%; }
         }
 
         @media (min-width: 1025px) {
-            .hero-text h1 { font-size: 56px; }
-            .hero-card { width: 380px; height: 460px; }
-            .hero-card-top { font-size: 72px; }
-            .bg-section, .timeline-section, .team-section, .gallery-section { padding: 80px 8%; }
-            .cta-section { padding: 100px 8%; }
-            .cta-section h2 { font-size: 40px; }
-            .section-header h2 { font-size: 38px; }
-            .bg-themes { grid-template-columns: repeat(4, 1fr); }
-            .stats-grid { gap: 24px; }
-            .stat-card { padding: 36px 24px; }
-            .stat-number { font-size: 42px; }
-            .team-grid { grid-template-columns: repeat(3, 1fr); }
+            /* ===== 导航 & UI ===== */
+            .navbar { padding: 14px 8%; }
+            .logo { font-size: 22px; }
+            .nav-links { display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+                max-height: none; opacity: 1; overflow: visible; pointer-events: auto; transition: none; }
+            .nav-links.open { flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+                max-height: none; opacity: 1; }
+            .nav-links a { width: auto; }
+            .nav-links a:hover, .nav-links a.active { color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12); }
+            .nav-toggle { display: none; }
+            .slide-arrow { width: 44px; height: 44px; font-size: 18px; }
+            .slide-arrow:hover { background: var(--primary); color: #fff; transform: translateY(-50%) scale(1.15); }
+            .slide-arrow-prev { left: 16px; }
+            .slide-arrow-next { right: 16px; }
+            .slide-dots { gap: 10px; }
+            .slide-dot { width: 10px; height: 10px; }
+            .slide-dot.active { width: 30px; }
+            .slide-hint { display: flex; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--text-light); z-index: 999; gap: 6px; animation: hintBounce 2s ease-in-out infinite; opacity: 0.6; }
+            .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+            .btn::after {
+                content: ''; position: absolute; top: 0; left: -100%;
+                width: 100%; height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+                transition: left 0.5s ease;
+            }
+            .btn:hover::after { left: 100%; }
+
+            /* ===== Slide 0: 首页 — 左图右文 ===== */
+            .home-page0 {
+                flex-direction: row !important;
+                padding-top: 55px;
+            }
+            .home-page0 > div:first-child { display: none; }
+            .home-photos {
+                flex: 0 0 55% !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            .home-photos > div { flex: 1 !important; min-height: 0 !important; }
+            .home-photos > div > div { display: none !important; }
+            .home-photos > div::after {
+                content: ''; position: absolute; top: 0; right: 0;
+                width: 60%; height: 100%;
+                background: linear-gradient(to right, transparent 0%, #fdfbf7 100%);
+                pointer-events: none; z-index: 1;
+            }
+            .home-text {
+                flex: 0 0 45% !important;
+                text-align: left !important;
+                padding: 40px 5% !important;
+                display: flex; flex-direction: column; justify-content: center;
+            }
+            .home-text h1 { font-size: 40px !important; line-height: 1.2 !important; }
+            .home-text p { font-size: 16px !important; margin-left: 0 !important; margin-right: 0 !important; }
+            .home-text > div:last-child { justify-content: flex-start !important; gap: 0 !important; }
+            .home-text > div:last-child a:nth-child(2) { margin-left: 50px !important; }
+
+            .home-story {
+                max-width: none !important;
+                padding: 80px 15% 100px !important;
+                margin: 0 !important;
+            }
+            .home-story::before {
+                content: '❤️ 爱心妈妈 · 张艳琴';
+                display: block;
+                font-size: 28px; font-weight: 800; color: #1a1a2e;
+                text-align: center; margin-bottom: 40px;
+                letter-spacing: 2px;
+            }
+            .home-story p {
+                font-size: 17px !important;
+                line-height: 2.2 !important;
+                text-indent: 0 !important;
+                margin-bottom: 24px !important;
+                color: #444 !important;
+            }
+            .home-story p:first-of-type {
+                font-size: 19px !important;
+                color: #1a1a2e !important;
+                font-weight: 500;
+                padding: 24px 32px;
+                background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+                border-radius: 16px;
+                border-left: 4px solid #3b82f6;
+            }
+
+            /* ===== Slide 1: 背景 — 单栏宽版 ===== */
+            .bg-section { padding: 100px 10%; }
+            .bg-container {
+                max-width: 1000px;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 60px;
+                align-items: center;
+            }
+            .bg-content-intro .section-header { text-align: center; }
+            .bg-content-intro .section-header h2 { text-align: center; font-size: 42px; }
+            .bg-location { font-size: 16px; padding: 10px 24px; margin-bottom: 20px; }
+            .bg-desc { font-size: 17px; line-height: 2; margin-bottom: 20px; }
+            .bg-quote {
+                font-size: 22px; padding: 32px 40px; margin: 24px 0;
+                border-radius: 24px;
+            }
+            .bg-content-themes .section-header { text-align: center; }
+            .bg-content-themes .section-header h2 { text-align: center; font-size: 42px; }
+            .bg-content-themes .bg-themes { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+            .bg-theme-card {
+                padding: 32px 24px;
+                border-radius: 24px;
+                transition: transform 0.4s ease, box-shadow 0.4s ease;
+            }
+            .bg-theme-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+            .bg-theme-icon { font-size: 40px; margin-bottom: 12px; }
+            .bg-theme-card h3 { font-size: 18px; margin-bottom: 8px; }
+            .bg-theme-card p { font-size: 15px; }
+            .bg-content-intro .stats-grid {
+                display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px;
+            }
+            .bg-content-intro .stat-card {
+                padding: 32px 24px; border-radius: 24px;
+                transition: transform 0.4s ease, box-shadow 0.4s ease;
+            }
+            .bg-content-intro .stat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+            .bg-content-intro .stat-icon { font-size: 36px; }
+            .bg-content-intro .stat-number { font-size: 38px !important; }
+            .bg-content-intro .stat-label { font-size: 15px; }
+
+            /* ===== Slide 2: 时间线 ===== */
+            .timeline-section { padding: 100px 10%; }
+            .section-header { margin-bottom: 60px; }
+            .section-header h2 { font-size: 42px; margin-bottom: 12px; }
+            .section-header p { font-size: 18px; max-width: 600px; }
+            .section-label { font-size: 14px; padding: 8px 22px; }
+            .timeline { max-width: 1000px; }
+            .timeline::before { left: 50%; transform: translateX(-50%); width: 4px; }
+            .timeline-item { align-items: center; margin-bottom: 50px; opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+            .timeline-dot { left: 50%; width: 52px; height: 52px; font-size: 20px; border-width: 4px; }
+            .timeline-content {
+                width: 42%; margin-left: 0; padding: 32px 36px;
+                border-radius: 24px;
+                transition: transform 0.4s ease, box-shadow 0.4s ease;
+            }
+            .timeline-content:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+            .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+            .timeline-date { font-size: 16px; margin-bottom: 10px; }
+            .timeline-content h3 { font-size: 20px; margin-bottom: 12px; }
+            .timeline-content ul { margin: 12px 0 0; }
+            .timeline-content ul li { font-size: 15px; line-height: 1.9; padding-left: 20px; margin-bottom: 8px; }
+            .timeline-content ul li::before { width: 6px; height: 6px; top: 10px; }
+            .timeline-tag { font-size: 13px; padding: 6px 14px; margin-top: 14px; }
+            .timeline-phase { font-size: 16px; padding: 16px 0; margin: 24px auto 12px; max-width: 1000px; }
+
+            /* ===== Slide 3: 团队 ===== */
+            .team-section { padding: 100px 10%; }
+            .leaders-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1400px; }
+            .leader-card { padding: 40px 32px; border-radius: 24px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+            .leader-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 24px 70px rgba(0,0,0,0.22); }
+            .leader-badge { font-size: 14px; padding: 8px 20px; margin-bottom: 16px; }
+            .leader-avatar { width: 80px; height: 80px; font-size: 36px; margin-bottom: 16px; overflow: hidden; }
+            .leader-card h3 { font-size: 22px; margin-bottom: 8px; }
+            .leader-subtitle { font-size: 14px; margin-bottom: 16px; }
+            .leader-card p {
+                font-size: 15px; line-height: 1.8;
+                position: relative; z-index: 2;
+                opacity: 0; max-height: 0; overflow: hidden;
+                transition: opacity 0.35s ease, max-height 0.4s ease;
+                color: rgba(255,255,255,0.9);
+            }
+            .leader-card:hover p { opacity: 1; max-height: 200px; }
+            .leader-card h3, .leader-card .leader-subtitle { position: relative; z-index: 2; transition: color 0.3s ease; }
+            .leader-card:hover h3 { color: #fff; }
+            .leader-card:hover .leader-subtitle { color: rgba(255,255,255,0.7); }
+            .leader-card .leader-badge, .leader-card .leader-avatar { position: relative; z-index: 2; }
+            .leader-card::before {
+                content: ''; position: absolute; inset: 0;
+                background: var(--overlay-bg, rgba(0,0,0,0.75)); opacity: 0; z-index: 1;
+                border-radius: inherit; pointer-events: none;
+                transition: opacity 0.35s ease;
+            }
+            .leader-card:hover::before { opacity: 1; }
+            .team-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1400px; }
+            .team-card { padding: 40px 28px; border-radius: 24px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+            .team-card:hover { transform: translateY(-8px) scale(1.04); box-shadow: 0 24px 70px rgba(0,0,0,0.22); }
+            .team-avatar { width: 100px; height: 100px; margin-bottom: 20px; }
+            .team-card h3 { font-size: 20px; margin-bottom: 6px; }
+            .team-role { font-size: 14px; margin-bottom: 14px; }
+            .team-card p {
+                font-size: 15px; line-height: 1.8;
+                position: relative; z-index: 2;
+                opacity: 0; max-height: 0; overflow: hidden;
+                transition: opacity 0.35s ease, max-height 0.4s ease;
+                color: rgba(255,255,255,0.9);
+            }
+            .team-card:hover p { opacity: 1; max-height: 200px; }
+            .team-card h3, .team-card .team-role, .team-card .team-avatar { position: relative; z-index: 2; transition: color 0.3s ease; }
+            .team-card:hover h3 { color: #fff; }
+            .team-card:hover .team-role { color: rgba(255,255,255,0.7); }
+            .team-card::before {
+                content: ''; position: absolute; inset: 0;
+                background: var(--overlay-bg, rgba(0,0,0,0.75)); opacity: 0; z-index: 1;
+                border-radius: inherit; pointer-events: none;
+                transition: opacity 0.35s ease;
+            }
+            .team-card:hover::before { opacity: 1; }
+            .team-epilogue { font-size: 17px; max-width: 800px; margin-top: 48px; line-height: 1.8; }
+
+            /* ===== Slide 4: 影像 ===== */
+            .gallery-section { padding: 100px 10%; }
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1400px; }
+            .gallery-item { border-radius: 20px; transition: transform 0.5s ease, box-shadow 0.5s ease; }
+            .gallery-item:hover { transform: scale(1.03); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+            .gallery-overlay { padding: 20px; }
+            .gallery-overlay span { font-size: 18px; }
+
+            /* ===== 全局 ===== */
+            .footer { padding: 60px 10%; }
+            .footer-copy { font-size: 14px; }
         }
     </style>
 </head>
@@ -575,9 +805,9 @@
             <!-- Slide 0: 首页 -->
             <div class="slide" data-index="0" style="overflow:hidden;">
         <div id="homePages" style="transition:transform 0.7s cubic-bezier(0.65,0,0.35,1);">
-        <div style="height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+        <div class="home-page0" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;">
             <div style="padding-top:55px;flex-shrink:0;"></div>
-            <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+            <div class="home-photos" style="flex:1;display:flex;flex-direction:column;min-height:0;">
                 <div style="flex:1;min-height:0;position:relative;overflow:hidden;">
                     <img src="images/home/bg.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
                 </div>
@@ -589,16 +819,16 @@
                     <div style="position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(to top,#fdfbf7,rgba(253,251,247,0.4),transparent);pointer-events:none;"></div>
                 </div>
             </div>
-            <div style="padding:3vh 5% 2vh;text-align:center;flex-shrink:0;">
+            <div class="home-text" style="padding:3vh 5% 2vh;text-align:center;flex-shrink:0;">
                 <h1 style="font-size:24px;line-height:1.25;margin-bottom:8px;color:#1a1a2e;">以<span style="color:#ef4444;">爱</span>为火 · 点亮星河</h1>
                 <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着因家庭变故失去完整亲情或伴有身体残障的困境儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以专业化服务与持续性陪伴，为困境儿童撑起一片成长的天空。</p>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                <div style="display:flex;gap:64px;flex-wrap:nowrap;justify-content:center;">
                     <a href="#background" class="btn btn-primary"><i class="fa-solid fa-book"></i> 了解实践背景</a>
-                    <a href="#timeline" class="btn btn-primary" style="background:linear-gradient(135deg,#ef4444,#3b82f6);box-shadow:0 6px 20px rgba(239,68,68,0.35);"><i class="fa-solid fa-calendar-days"></i> 查看支教日记</a>
+                    <a href="#timeline" class="btn btn-primary" style="background:linear-gradient(135deg,#3b82f6,#10b981);box-shadow:0 6px 20px rgba(59,130,246,0.35);"><i class="fa-solid fa-calendar-days"></i> 查看支教日记</a>
                 </div>
             </div>
         </div>
-        <div style="height:100vh;overflow-y:auto;padding:65px 5% 80px;max-width:700px;margin:0 auto;">
+        <div class="home-story" style="height:100vh;overflow-y:auto;padding:65px 5% 80px;max-width:700px;margin:0 auto;">
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:10px;">张艳琴是中宁县石空镇关帝村一位普通妇女，从1986年开始照顾孤残、留守儿童，关注他们的心理健康，包括青少年学生的心理辅导、抑郁症孩子的康复治疗等工作。她始终用无私的爱照顾孤残、留守儿童，被孩子们称为"爱心妈妈"。</p>
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:10px;">冬至这天，记者来到张艳琴爱心小院看到，张艳琴正和村上的姐妹们围坐在一起，忙活着包饺子。</p>
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:10px;">1986年，只有初中文凭的张艳琴被关帝小学聘为代课教师，正是这段经历，让她和孩子们结下了深深的师生情。担任代课老师期间，张艳琴发现，有一些"留守儿童"和"问题少年"特别需要尊重和关爱。从学校辞职后，她创办"爱心小院"，把所有的精力都投入到了青少年儿童、老年人以及残障人士的心理健康上来，有时她会把那些失去亲人的孩子、留守儿童、被家庭放弃的孩子和孤寡老人接到家里住上数月，为他们辅导功课、做心理疏导、提供免费食物等。对于张艳琴的行为，家人的不理解、村里人的闲话让她曾经也有过放弃的想法。</p>
@@ -615,7 +845,7 @@
     <!-- 实践背景 -->
     <section class="bg-section" id="background">
         <div class="bg-container">
-            <div class="bg-content">
+            <div class="bg-content bg-content-intro">
                 <div class="section-header">
                     <h2>为何出发</h2>
                 </div>
@@ -637,50 +867,62 @@
                 </div>
                 <!-- 归属数据 -->
                     <div class="stats-grid" style="margin-top:40px;">
-                    <div class="stat-card tilt-card" data-tilt-strength="4">
-                        <div class="stat-icon">👨‍🏫</div>
-                        <div class="stat-number counter" data-target="10">0</div>
-                        <div class="stat-label">实践队成员</div>
+                    <div class="stat-card data-tilt-strength="8" style="position:relative;overflow:hidden;background-image:url('images/bg/gsxx.webp');background-size:cover;background-position:center;">
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:0;"></div>
+                        <div style="position:relative;z-index:1;">
+                            <div class="stat-icon">🏫</div>
+                            <div class="stat-number" style="font-size:20px;color:#fff;">北京科技大学</div>
+                            <div class="stat-label" style="color:rgba(255,255,255,0.8);">归属学校</div>
+                        </div>
                     </div>
-                    <div class="stat-card tilt-card" data-tilt-strength="4">
-                        <div class="stat-icon">🏫</div>
-                        <div class="stat-number" style="font-size:26px;">北京科技大学</div>
-                        <div class="stat-label">归属学校</div>
+                    <div class="stat-card data-tilt-strength="8" style="position:relative;overflow:hidden;background-image:url('images/bg/sjdcy.webp');background-size:cover;background-position:center;">
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:0;"></div>
+                        <div style="position:relative;z-index:1;">
+                            <div class="stat-icon">👨‍🏫</div>
+                            <div class="stat-number counter" data-target="10" style="color:#fff;">0</div>
+                            <div class="stat-label" style="color:rgba(255,255,255,0.8);">实践队成员</div>
+                        </div>
                     </div>
-                    <div class="stat-card tilt-card" data-tilt-strength="4">
-                        <div class="stat-icon">📚</div>
-                        <div class="stat-number counter" data-target="2">0</div>
-                        <div class="stat-label">授课天数</div>
+                    <div class="stat-card data-tilt-strength="8" style="position:relative;overflow:hidden;background-image:url('images/bg/skts.webp');background-size:cover;background-position:center;">
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:0;"></div>
+                        <div style="position:relative;z-index:1;">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-number counter" data-target="2" style="color:#fff;">0</div>
+                            <div class="stat-label" style="color:rgba(255,255,255,0.8);">授课天数</div>
+                        </div>
                     </div>
-                    <div class="stat-card tilt-card" data-tilt-strength="4">
-                        <div class="stat-icon">🧒</div>
-                        <div class="stat-number counter" data-target="30">0</div>
-                        <div class="stat-label">受益学生</div>
+                    <div class="stat-card data-tilt-strength="8" style="position:relative;overflow:hidden;background-image:url('images/bg/syxs.webp');background-size:cover;background-position:center;">
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:0;"></div>
+                        <div style="position:relative;z-index:1;">
+                            <div class="stat-icon">🧒</div>
+                            <div class="stat-number counter" data-target="30" style="color:#fff;">0</div>
+                            <div class="stat-label" style="color:rgba(255,255,255,0.8);">受益学生</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-content">
+            <div class="bg-content bg-content-themes">
                 <div class="section-header" style="margin-bottom:40px;">
                     <div class="section-label">实践主题</div>
                     <h2>我们做什么</h2>
                 </div>
                 <div class="bg-themes">
-                    <div class="bg-theme-card">
+                    <div class="bg-theme-card data-tilt-strength="8">
                         <div class="bg-theme-icon">📚</div>
                         <h3>学业辅导</h3>
                         <p>适应性课业辅导，弥补教育短板</p>
                     </div>
-                    <div class="bg-theme-card">
+                    <div class="bg-theme-card data-tilt-strength="8">
                         <div class="bg-theme-icon">❤️</div>
                         <h3>情感疗愈</h3>
                         <p>心理陪伴与情感重建，修复心灵</p>
                     </div>
-                    <div class="bg-theme-card">
+                    <div class="bg-theme-card data-tilt-strength="8">
                         <div class="bg-theme-icon">🤝</div>
                         <h3>社会融入</h3>
                         <p>集体活动与素质拓展，融入社会</p>
                     </div>
-                    <div class="bg-theme-card">
+                    <div class="bg-theme-card data-tilt-strength="8">
                         <div class="bg-theme-icon">💪</div>
                         <h3>康复陪伴</h3>
                         <p>残障儿童康复陪伴，温暖同行</p>
@@ -772,17 +1014,17 @@
                 <div class="leader-subtitle">中共党员，计2305团支书</div>
                 <p>曾获优秀共青团干部、三好学生、社会实践先进个人等荣誉称号。竞赛方面获全国大学生数学建模竞赛北京赛区一等奖、中国大学生计算机设计大赛北京赛区一等奖、首都挑战杯一等奖等多项省部级奖项。今年是我参与社会实践的第三年，预祝大家社会实践成功顺利，一起加油！</p>
             </div>
+            <div class="leader-card">
+                <div class="leader-badge" style="background:linear-gradient(135deg,#3b82f6,#10b981);color:#fff;">队长</div>
+                <div class="leader-avatar" style="overflow:hidden;"><img loading="lazy" src="images/team/ykq.webp" alt="殷楷棋" style="width:100%;height:100%;object-fit:cover;"></div>
+                <h3>殷楷棋</h3>
+                <div class="leader-subtitle">队长</div>
+                <p>"我是沙海星火实践队的队长，一个超级热情乐观、热衷教学的学生，主要负责统筹教学任务和音乐方面课程的教学。授人以鱼，不如授人以渔。"</p>
+            </div>
         </div>
 
         <!-- 成员网格 -->
         <div class="team-grid">
-
-            <div class="team-card tilt-card" data-tilt-strength="5">
-                <div class="team-avatar"><img loading="lazy" src="images/team/ykq.webp" alt="殷楷棋"></div>
-                <h3>殷楷棋</h3>
-                <div class="team-role">队长</div>
-                <p>"我是沙海星火实践队的队长，一个超级热情乐观、热衷教学的学生，主要负责统筹教学任务和音乐方面课程的教学。授人以鱼，不如授人以渔。"</p>
-            </div>
 
             <div class="team-card tilt-card" data-tilt-strength="5">
                 <div class="team-avatar"><img loading="lazy" src="images/team/byq.webp" alt="白云青"></div>
@@ -850,7 +1092,7 @@
         </div>
 
         <!-- 结语 -->
-        <div class="team-epilogue">沙海辽阔，星火燎原。心路实践团沙海星火小队集结完毕，即将赴宁夏中卫开展乡村支教。前路漫漫亦灿灿，我们会以文字与镜头记录点滴，传递温暖。</div>
+        <div class="team-epilogue">前路漫漫亦灿灿，一纸墨痕渡千山，一帧光影寄流年。</div>
     </section>
             </div><!-- /slide 3 -->
 
@@ -863,32 +1105,7 @@
             <h2>定格温暖瞬间</h2>
             <p>每一张照片背后，都有一个故事</p>
         </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #f6d365, #fda085); display: flex; align-items: center; justify-content: center; font-size: 48px;">📖</div>
-                <div class="gallery-overlay"><span>教室里的早读课</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #a1c4fd, #c2e9fb); display: flex; align-items: center; justify-content: center; font-size: 48px;">⚽</div>
-                <div class="gallery-overlay"><span>操场上的趣味运动会</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #fbc2eb, #a6c1ee); display: flex; align-items: center; justify-content: center; font-size: 48px;">🎒</div>
-                <div class="gallery-overlay"><span>出发前物资准备</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #84fab0, #8fd3f4); display: flex; align-items: center; justify-content: center; font-size: 48px;">🌄</div>
-                <div class="gallery-overlay"><span>山间的晨光与希望</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #ffecd2, #fcb69f); display: flex; align-items: center; justify-content: center; font-size: 48px;">🎨</div>
-                <div class="gallery-overlay"><span>孩子们的艺术作品</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-img" style="background: linear-gradient(135deg, #d4fc79, #96e6a1); display: flex; align-items: center; justify-content: center; font-size: 48px;">🤝</div>
-                <div class="gallery-overlay"><span>离别时的约定</span></div>
-            </div>
-        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
     <!-- 页脚 -->
@@ -900,17 +1117,18 @@
             <a href="#team">团队</a>
             <a href="#gallery">影像</a>
         </div>
-        <div class="footer-socials">
-            <a href="#"><i class="fa-brands fa-weixin"></i></a>
-            <a href="#"><i class="fa-brands fa-weibo"></i></a>
-            <a href="#"><i class="fa-brands fa-bilibili"></i></a>
-        </div>
         <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made with Lxw❤️</p>
     </footer>
             </div><!-- /slide 4 -->
 
         </div><!-- /slides-track -->
     </div><!-- /slides-wrapper -->
+
+    <!-- 灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img class="lightbox-img" id="lightboxImg" onclick="event.stopPropagation()">
+    </div>
 
     <!-- 过渡扫光层 -->
     <div class="transition-overlay" id="transitionOverlay"></div>
@@ -1007,6 +1225,7 @@
             const prev = current;
             const direction = index > prev ? 'right' : 'left';
             current = index;
+            if (index === 4) setTimeout(buildGallery, 850);
 
             // 清空旧状态
             slides.forEach(s => s.classList.remove('exit', 'enter'));
@@ -1173,7 +1392,7 @@
                 if (homePage === 0) {
                     if (Math.abs(dy) > TOUCH_THRESHOLD) { touchLocked = true; flipHomePage(1); }
                 } else {
-                    if (dy < 0 && storyAtTopStart && Math.abs(dy) > TOUCH_THRESHOLD) { touchLocked = true; flipHomePage(-1); }
+                    if (dy > 0 && storyAtTopStart && Math.abs(dy) > TOUCH_THRESHOLD) { touchLocked = true; flipHomePage(-1); }
                     else if (dy > 0 && storyAtBottomStart && dy > TOUCH_THRESHOLD) { touchLocked = true; goToSlide(1); }
                 }
             } else {
@@ -1262,7 +1481,7 @@
         const counterAnimated = new WeakSet();
         const animateCounter = (el) => {
             const target = +el.getAttribute('data-target');
-            const duration = 2200;
+            const duration = 1000;
             const start = performance.now();
             const tick = (now) => { const elapsed = now - start; const progress = Math.min(elapsed / duration, 1); const eased = 1 - Math.pow(1 - progress, 4); el.textContent = Math.floor(eased * target); if (progress < 1) requestAnimationFrame(tick); };
             requestAnimationFrame(tick);
@@ -1292,6 +1511,79 @@
         });
 
         // ===== 初始化首页 =====
+        // ===== 画廊：每次切换到影像页重新随机生成 =====
+        const allPhotos = [
+            'images/photo/IMG20260728085022.webp',
+            'images/photo/IMG20260728085035.webp',
+            'images/photo/IMG20260728085038.webp',
+            'images/photo/IMG20260728085200.webp',
+            'images/photo/IMG20260728085230__1_.webp',
+            'images/photo/IMG20260728085927.webp',
+            'images/photo/IMG20260728085937.webp'
+        ];
+        const allSizes = [
+            { r: 1, c: 1 }, { r: 2, c: 1 }, { r: 1, c: 1 },
+            { r: 2, c: 2 }, { r: 1, c: 2 }, { r: 1, c: 1 },
+            { r: 2, c: 1 }, { r: 2, c: 2 }, { r: 1, c: 2 },
+            { r: 1, c: 1 }
+        ];
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightboxImg');
+        window.closeLightbox = function() { if (lightbox) lightbox.classList.remove('open'); };
+        if (lightbox) {
+            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
+        }
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+        function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+        function buildGallery() {
+            const grid = document.getElementById('galleryGrid');
+            if (!grid) return;
+            const count = Math.min(10, allPhotos.length);
+            const picked = shuffle([...allPhotos]).slice(0, count);
+            const sizes = shuffle([...allSizes]);
+            const frag = document.createDocumentFragment();
+            picked.forEach((src, i) => {
+                const s = sizes[i % sizes.length];
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.style.gridRow = 'span ' + s.r;
+                item.style.gridColumn = 'span ' + s.c;
+                const img = document.createElement('img');
+                img.src = src; img.alt = '照片' + (i + 1); img.loading = 'lazy';
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery-overlay';
+                overlay.innerHTML = '<span>照片 ' + (i + 1) + '</span>';
+                item.appendChild(img);
+                item.appendChild(overlay);
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation(); e.preventDefault();
+                    if (lbImg) lbImg.src = src;
+                    if (lightbox) lightbox.classList.add('open');
+                });
+                item.addEventListener('touchstart', (e) => { e.stopPropagation(); });
+                item.addEventListener('mousedown', (e) => { e.stopPropagation(); });
+                frag.appendChild(item);
+            });
+            grid.replaceChildren(frag);
+        }
+        // ===== 随机遮罩颜色 =====
+        (function() {
+            const palette = [
+                'rgba(99,102,241,0.75)','rgba(236,72,153,0.75)','rgba(244,63,94,0.75)',
+                'rgba(249,115,22,0.75)','rgba(234,179,8,0.75)','rgba(132,204,22,0.75)',
+                'rgba(34,197,94,0.75)','rgba(6,182,212,0.75)','rgba(59,130,246,0.75)',
+                'rgba(139,92,246,0.75)','rgba(168,85,247,0.75)','rgba(20,184,166,0.75)',
+                'rgba(245,158,11,0.75)'
+            ];
+            function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+            const shuffled = shuffle([...palette]);
+            document.querySelectorAll('.leader-card, .team-card').forEach((card, i) => {
+                card.style.setProperty('--overlay-bg', shuffled[i % shuffled.length]);
+            });
+        })();
+        buildGallery();
         updateUI();
         triggerSlideAnimations(0);
     </script>
