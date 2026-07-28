@@ -53,7 +53,7 @@
             z-index: 999; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             opacity: 0; pointer-events: none;
         }
-        .slide-arrow.visible { opacity: 1; pointer-events: auto; }
+        .slide-arrow.visible { opacity: 0.6; pointer-events: auto; }
         .slide-arrow-prev { left: 8px; }
         .slide-arrow-next { right: 8px; }
 
@@ -93,10 +93,10 @@
 
         /* 粒子画布 */
 
-        /* 粒子背景 */
+        /* 粒子背景 — 悬浮在所有幻灯片之上 */
         #particleCanvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 0; opacity: 0.35;
+            pointer-events: none; z-index: 50; opacity: 1;
         }
 
         /* 自定义滚动条 */
@@ -381,8 +381,8 @@
         .team-role { color: var(--primary); font-size: 12px; font-weight: 600; margin-bottom: 10px; }
         .team-card p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
         .team-epilogue {
-            max-width: 100%; margin: 24px auto 0;
-            text-align: center; font-size: 13px; color: #5d4037; font-weight: 500;
+            max-width: 100%; margin: 64px auto 0;
+            text-align: center; font-size: 12px; color: #5d4037; font-weight: 500;
         }
 
         /* 照片画廊 */
@@ -470,7 +470,7 @@
             .nav-links a { width: auto; }
             .nav-links a:hover, .nav-links a.active { color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12); }
             .nav-toggle { display: none; }
-            .slide-arrow { width: 44px; height: 44px; font-size: 18px; }
+            .slide-arrow { width: 44px; height: 44px; font-size: 18px; opacity: 1; }
             .slide-arrow:hover { background: var(--primary); color: #fff; transform: translateY(-50%) scale(1.15); }
             .slide-arrow-prev { left: 16px; }
             .slide-arrow-next { right: 16px; }
@@ -543,7 +543,7 @@
             .team-avatar { width: 80px; height: 80px; }
             .team-card h3 { font-size: 17px; }
             .team-card p { font-size: 14px; }
-            .team-epilogue { font-size: 14px; }
+            .team-epilogue { font-size: 13px; margin-top: 64px; }
             .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
             .gallery-item:hover { transform: scale(1.02); }
             .gallery-overlay { opacity: 0; padding: 20px; }
@@ -571,7 +571,7 @@
             .nav-links a { width: auto; }
             .nav-links a:hover, .nav-links a.active { color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12); }
             .nav-toggle { display: none; }
-            .slide-arrow { width: 44px; height: 44px; font-size: 18px; }
+            .slide-arrow { width: 44px; height: 44px; font-size: 18px; opacity: 1; }
             .slide-arrow:hover { background: var(--primary); color: #fff; transform: translateY(-50%) scale(1.15); }
             .slide-arrow-prev { left: 16px; }
             .slide-arrow-next { right: 16px; }
@@ -615,34 +615,37 @@
             }
             .home-text h1 { font-size: 40px !important; line-height: 1.2 !important; }
             .home-text p { font-size: 16px !important; margin-left: 0 !important; margin-right: 0 !important; }
+            #homeParticles { display: block !important; }
 
             .home-story {
                 max-width: none !important;
-                padding: 80px 15% 100px !important;
+                padding: 80px 12% 120px !important;
                 margin: 0 !important;
             }
             .home-story::before {
-                content: '❤️ 爱心妈妈 · 张艳琴';
+                content: '爱心妈妈 · 张艳琴';
                 display: block;
-                font-size: 28px; font-weight: 800; color: #1a1a2e;
-                text-align: center; margin-bottom: 40px;
-                letter-spacing: 2px;
+                font-size: 30px; font-weight: 800; color: #1a1a2e;
+                text-align: center; margin-bottom: 56px;
+                letter-spacing: 4px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid rgba(230,126,34,0.25);
             }
             .home-story p {
                 font-size: 17px !important;
-                line-height: 2.2 !important;
-                text-indent: 0 !important;
-                margin-bottom: 24px !important;
-                color: #444 !important;
+                line-height: 2.3 !important;
+                text-indent: 2em !important;
+                margin-bottom: 28px !important;
+                color: #3a3a3a !important;
             }
             .home-story p:first-of-type {
-                font-size: 19px !important;
-                color: #1a1a2e !important;
-                font-weight: 500;
-                padding: 24px 32px;
-                background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
-                border-radius: 16px;
-                border-left: 4px solid #3b82f6;
+                font-size: 17px !important;
+                color: #3a3a3a !important;
+                font-weight: 400;
+                padding: 0;
+                background: none;
+                border-radius: 0;
+                border-left: none;
             }
 
             /* ===== Slide 1: 背景 — 单栏宽版 ===== */
@@ -664,7 +667,7 @@
             }
             .bg-content-themes .section-header { text-align: center; }
             .bg-content-themes .section-header h2 { text-align: center; font-size: 42px; }
-            .bg-content-themes .bg-themes { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+            .bg-content-themes .bg-themes { grid-template-columns: repeat(3, 1fr); gap: 24px; }
             .bg-theme-card {
                 padding: 32px 24px;
                 border-radius: 24px;
@@ -722,16 +725,18 @@
             .leader-subtitle { font-size: 14px; margin-bottom: 16px; }
             .leader-card p {
                 font-size: 15px; line-height: 1.8;
-                position: relative; z-index: 2;
-                opacity: 0; max-height: 0; overflow: hidden;
-                transition: opacity 0.35s ease, max-height 0.4s ease;
+                position: absolute; inset: 0; z-index: 3;
+                display: flex; align-items: center; justify-content: center; text-align: center;
+                padding: 40px 32px;
+                opacity: 0; overflow: hidden;
+                transition: opacity 0.4s ease;
                 color: rgba(255,255,255,0.9);
             }
-            .leader-card:hover p { opacity: 1; max-height: 200px; }
-            .leader-card h3, .leader-card .leader-subtitle { position: relative; z-index: 2; transition: color 0.3s ease; }
-            .leader-card:hover h3 { color: #fff; }
-            .leader-card:hover .leader-subtitle { color: rgba(255,255,255,0.7); }
-            .leader-card .leader-badge, .leader-card .leader-avatar { position: relative; z-index: 2; }
+            .leader-card:hover p { opacity: 1; }
+            .leader-card h3, .leader-card .leader-subtitle { position: relative; z-index: 2; transition: color 0.3s ease, opacity 0.3s ease; }
+            .leader-card:hover h3, .leader-card:hover .leader-subtitle { opacity: 0; }
+            .leader-card .leader-badge, .leader-card .leader-avatar { position: relative; z-index: 2; transition: opacity 0.3s ease; }
+            .leader-card:hover .leader-badge, .leader-card:hover .leader-avatar { opacity: 0; }
             .leader-card::before {
                 content: ''; position: absolute; inset: 0;
                 background: var(--overlay-bg, rgba(0,0,0,0.75)); opacity: 0; z-index: 1;
@@ -747,15 +752,16 @@
             .team-role { font-size: 14px; margin-bottom: 14px; }
             .team-card p {
                 font-size: 15px; line-height: 1.8;
-                position: relative; z-index: 2;
-                opacity: 0; max-height: 0; overflow: hidden;
-                transition: opacity 0.35s ease, max-height 0.4s ease;
+                position: absolute; inset: 0; z-index: 3;
+                display: flex; align-items: center; justify-content: center; text-align: center;
+                padding: 40px 28px;
+                opacity: 0; overflow: hidden;
+                transition: opacity 0.4s ease;
                 color: rgba(255,255,255,0.9);
             }
-            .team-card:hover p { opacity: 1; max-height: 200px; }
-            .team-card h3, .team-card .team-role, .team-card .team-avatar { position: relative; z-index: 2; transition: color 0.3s ease; }
-            .team-card:hover h3 { color: #fff; }
-            .team-card:hover .team-role { color: rgba(255,255,255,0.7); }
+            .team-card:hover p { opacity: 1; }
+            .team-card h3, .team-card .team-role, .team-card .team-avatar { position: relative; z-index: 2; transition: opacity 0.3s ease; }
+            .team-card:hover h3, .team-card:hover .team-role, .team-card:hover .team-avatar { opacity: 0; }
             .team-card::before {
                 content: ''; position: absolute; inset: 0;
                 background: var(--overlay-bg, rgba(0,0,0,0.75)); opacity: 0; z-index: 1;
@@ -763,7 +769,7 @@
                 transition: opacity 0.35s ease;
             }
             .team-card:hover::before { opacity: 1; }
-            .team-epilogue { font-size: 17px; max-width: 800px; margin-top: 48px; line-height: 1.8; }
+            .team-epilogue { font-size: 15px; max-width: 800px; margin-top: 88px; line-height: 1.8; }
 
             /* ===== Slide 4: 影像 ===== */
             .gallery-section { padding: 100px 10%; }
@@ -817,9 +823,12 @@
                     <div style="position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(to top,#fdfbf7,rgba(253,251,247,0.4),transparent);pointer-events:none;"></div>
                 </div>
             </div>
-            <div class="home-text" style="padding:3vh 5% 2vh;text-align:center;flex-shrink:0;">
+            <div class="home-text" style="padding:3vh 5% 2vh;text-align:center;flex-shrink:0;position:relative;overflow:hidden;">
+                <canvas id="homeParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;"></canvas>
+                <div style="position:relative;z-index:1;">
                 <h1 style="font-size:24px;line-height:1.25;margin-bottom:8px;color:#1a1a2e;">以<span style="color:#ef4444;">爱</span>为火 · 点亮星河</h1>
-                <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着因家庭变故失去完整亲情或伴有身体残障的困境儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以专业化服务与持续性陪伴，为困境儿童撑起一片成长的天空。</p>
+                <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着有着心理困境的儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以专业化服务与持续性陪伴，拓展课外知识，为困境儿童撑起一片成长的天空。</p>
+                </div>
             </div>
         </div>
         <div class="home-story" style="height:100vh;overflow-y:auto;padding:65px 5% 80px;max-width:700px;margin:0 auto;">
@@ -829,6 +838,7 @@
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:10px;">张艳琴说，"爱心小院"是一个充满爱的地方，孩子们的每一点进步，好心人的每一点帮助，都是她坚持走下去的动力。在她的工作室，墙上贴满了孩子们亲手写给张妈妈的祝福卡，一排排桌子上摆满了各种各样的物品，更有大大小小的各种荣誉证书。她说，这里的每一件物品，每一封书信，都记录着一段难忘的故事，这些东西是孩子们对她的认可，每次看到这些，她觉得所有的付出都是值得的。</p>
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:10px;">张艳琴的事迹感动了许多人，在她的影响下，逐渐形成一个爱心团队，越来越多的爱心人士加入公益活动中来。中宁县雷锋私家车队队长滕海龙就是其中之一。</p>
             <p style="font-size:14px;color:#555;line-height:2;text-indent:2em;margin-bottom:0;">张艳琴的事迹谈不上轰轰烈烈，却感人至深。她用经年累月的坚守、细致入微的关爱，给孩子们心灵以阳光般的抚慰，给众多家庭点燃了希望。</p>
+            <p style="font-size:13px;color:#999;text-align:right;margin:16px 0 0;">——选自宁夏中宁县人民政府</p>
         </div>
         </div>
             </div><!-- /slide 0 -->
@@ -915,11 +925,6 @@
                         <div class="bg-theme-icon">🤝</div>
                         <h3>社会融入</h3>
                         <p>集体活动与素质拓展，融入社会</p>
-                    </div>
-                    <div class="bg-theme-card data-tilt-strength="8">
-                        <div class="bg-theme-icon">💪</div>
-                        <h3>康复陪伴</h3>
-                        <p>残障儿童康复陪伴，温暖同行</p>
                     </div>
                 </div>
             </div>
@@ -1081,12 +1086,12 @@
                 <h3>李学伟</h3>
                 <div class="team-role">程序设计组</div>
                 <p>"我十分热爱编程，平时热衷于钻研代码逻辑与功能实现，乐于主动和大家交流思路。遇到问题愿意主动沟通探讨，期待和大家相互学习、共同进步。"</p>
-            </div>
+                </div>
 
         </div>
 
         <!-- 结语 -->
-        <div class="team-epilogue">前路漫漫亦灿灿，一纸墨痕渡千山，一帧光影寄流年。</div>
+        <div class="team-epilogue">前路漫漫亦灿灿，一纸墨痕渡千山，一帧光影寄流年</div>
     </section>
             </div><!-- /slide 3 -->
 
@@ -1111,7 +1116,7 @@
             <a href="#team">团队</a>
             <a href="#gallery">影像</a>
         </div>
-        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made with Lxw❤️</p>
+        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made by Lxw❤️</p>
     </footer>
             </div><!-- /slide 4 -->
 
@@ -1138,40 +1143,130 @@
     <div class="slide-hint" id="slideHint"><i class="fa-solid fa-arrows-left-right"></i> 左右切换</div>
 
     <script>
-        // ===== 粒子背景 =====
+        // ===== 全局粒子背景（悬浮在幻灯片之上，仅桌面端） =====
         (function() {
             const canvas = document.getElementById('particleCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let particles = [];
-            let w, h;
+            let w, h, animId;
             function resize() {
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
             }
-            class Particle {
+            resize();
+            const Particle = class {
                 constructor() { this.reset(true); }
                 reset(init) {
                     this.x = Math.random() * w;
                     this.y = init ? Math.random() * h : h + 20;
-                    this.r = Math.random() * 2 + 0.8;
-                    this.speed = Math.random() * 0.4 + 0.15;
-                    this.opacity = Math.random() * 0.4 + 0.1;
-                    this.drift = (Math.random() - 0.5) * 0.3;
+                    this.r = Math.random() * 2.5 + 0.8;
+                    this.speed = Math.random() * 0.5 + 0.15;
+                    this.opacity = Math.random() * 0.17 + 0.08;
+                    this.drift = (Math.random() - 0.5) * 0.35;
+                    this.color = Math.random() < 0.55 ? [230, 126, 34] : [46, 204, 113];
                 }
-                update() { this.y -= this.speed; this.x += this.drift; if (this.y < -20) this.reset(false); if (this.x < -20) this.x = w + 20; if (this.x > w + 20) this.x = -20; }
-                draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(230,126,34,${this.opacity})`; ctx.fill(); }
-            }
+                update() {
+                    this.y -= this.speed; this.x += this.drift;
+                    if (this.y < -20) this.reset(false);
+                    if (this.x < -20) this.x = w + 20;
+                    if (this.x > w + 20) this.x = -20;
+                }
+                draw() {
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    const [rr, gg, bb] = this.color;
+                    ctx.fillStyle = `rgba(${rr},${gg},${bb},${this.opacity})`;
+                    ctx.fill();
+                }
+            };
             function init(count) { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
-            function loop() { ctx.clearRect(0, 0, w, h); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(loop); }
-            const isMobile = window.innerWidth < 640;
-            if (isMobile) { canvas.style.display = 'none'; return; }
-            resize(); init(60);
-            window.addEventListener('resize', resize);
-            loop();
+            function loop() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                animId = requestAnimationFrame(loop);
+            }
+            function start() {
+                if (window.innerWidth < 1025) { stop(); return; }
+                resize(); init(70); loop();
+            }
+            function stop() {
+                if (animId) { cancelAnimationFrame(animId); animId = null; }
+                particles = []; ctx.clearRect(0, 0, w, h);
+            }
+            start();
+            let rt;
+            window.addEventListener('resize', () => {
+                clearTimeout(rt);
+                rt = setTimeout(() => { stop(); if (window.innerWidth >= 1025) { init(70); resize(); loop(); } }, 200);
+            });
         })();
 
-        // ===== 幻灯片导航 — 高级过渡 =====
+        // ===== 首页右侧粒子效果（仅桌面端） =====
+        (function() {
+            const canvas = document.getElementById('homeParticles');
+            if (!canvas) return;
+            const textEl = canvas.parentElement;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let w, h;
+            let animId;
+            function resize() {
+                const rect = textEl.getBoundingClientRect();
+                w = canvas.width = rect.width;
+                h = canvas.height = rect.height;
+            }
+            resize();
+            const Particle = class {
+                constructor() { this.reset(true); }
+                reset(init) {
+                    this.x = Math.random() * w;
+                    this.y = init ? Math.random() * h : h + 10;
+                    this.r = Math.random() * 2 + 1;
+                    this.speed = Math.random() * 0.5 + 0.2;
+                    this.opacity = Math.random() * 0.35 + 0.08;
+                    this.drift = (Math.random() - 0.5) * 0.4;
+                    this.color = Math.random() < 0.5 ? [230, 126, 34] : [46, 204, 113];
+                }
+                update() {
+                    this.y -= this.speed;
+                    this.x += this.drift;
+                    if (this.y < -10) this.reset(false);
+                    if (this.x < -10) this.x = w + 10;
+                    if (this.x > w + 10) this.x = -10;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    const [rr, gg, bb] = this.color;
+                    ctx.fillStyle = `rgba(${rr},${gg},${bb},${this.opacity})`;
+                    ctx.fill();
+                }
+            };
+            function init(count) { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
+            function loop() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                animId = requestAnimationFrame(loop);
+            }
+            function start() {
+                if (window.innerWidth < 1025) { stop(); return; }
+                resize(); init(50); loop();
+            }
+            function stop() {
+                if (animId) { cancelAnimationFrame(animId); animId = null; }
+                particles = [];
+                ctx.clearRect(0, 0, w, h);
+            }
+            start();
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    stop();
+                    if (window.innerWidth >= 1025) { init(50); resize(); loop(); }
+                }, 150);
+            });
+        })();
         const track = document.getElementById('slidesTrack');
         const slides = document.querySelectorAll('.slide');
         const dots = document.getElementById('slideDots');
@@ -1511,6 +1606,8 @@
             'images/photo/IMG20260727101913.webp',
             'images/photo/IMG20260727102432.webp',
             'images/photo/IMG20260727102435.webp',
+            'images/photo/IMG20260727103212.webp',
+            'images/photo/IMG20260727103613.webp',
             'images/photo/IMG20260728085022.webp',
             'images/photo/IMG20260728085035.webp',
             'images/photo/IMG20260728085038.webp',
