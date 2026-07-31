@@ -282,8 +282,25 @@
         .stat-number { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
         .stat-label { font-size: 13px; color: var(--text-light); font-weight: 500; }
 
-        /* 日记时间线 */
+        /* ===== Slide 2: 日记卡片 ===== */
         .timeline-section { padding: 65px 5% 40px; background: #fff; }
+        .diary-list { max-width: 900px; margin: 0 auto; }
+        .diary-phase { text-align: center; font-size: 13px; font-weight: 700; color: var(--primary); padding: 20px 0 16px; margin: 0 auto; letter-spacing: 2px; }
+        .diary-card { display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; }
+        .diary-photo { width: 100%; min-height: 200px; position: relative; background: #f5f0eb; flex-shrink: 0; }
+        .diary-photo img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
+        .diary-photo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #d0ccc4; font-size: 32px; gap: 6px; }
+        .diary-photo-placeholder span { font-size: 12px; }
+        .diary-body { padding: 20px; }
+        .diary-date { font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+        .diary-body h3 { font-size: 17px; margin-bottom: 10px; color: #1a1a2e; }
+        .diary-body ul { list-style: none; padding: 0; margin: 8px 0 0; }
+        .diary-body ul li { font-size: 13px; color: var(--text-light); line-height: 1.8; padding-left: 16px; position: relative; margin-bottom: 5px; }
+        .diary-body ul li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
+        .diary-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 12px; background: var(--primary-light); color: var(--primary); }
+        .diary-card { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .diary-card.revealed { opacity: 1; transform: translateY(0); }
+
         .section-header { text-align: center; margin-bottom: 30px; }
         .section-label {
             display: inline-block; padding: 4px 14px; background: var(--primary-light);
@@ -292,50 +309,6 @@
         }
         .section-header h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 8px; }
         .section-header p { color: var(--text-light); font-size: 14px; max-width: 500px; margin: 0 auto; }
-        .timeline { position: relative; max-width: 800px; margin: 0 auto; min-height: 40px; }
-        .timeline::before {
-            content: ''; position: absolute; left: 20px; top: 0;
-            width: 3px; height: 100%; background: linear-gradient(to bottom, var(--primary-light), var(--primary), var(--primary-light));
-            border-radius: 2px;
-        }
-        .timeline-item {
-            display: flex; align-items: flex-start; margin-bottom: 36px; position: relative;
-            flex-direction: row;
-        }
-        .timeline-dot {
-            position: absolute; left: 20px; transform: translateX(-50%);
-            width: 36px; height: 36px; background: #fff; border: 3px solid var(--primary);
-            border-radius: 50%; z-index: 2; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; color: var(--primary); box-shadow: 0 3px 10px rgba(230,126,34,0.2);
-        }
-        .timeline-content {
-            width: calc(100% - 52px); margin-left: 52px;
-            background: #fff; padding: 16px; border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .timeline-date { font-size: 12px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
-        .timeline-content h3 { font-size: 15px; margin-bottom: 8px; color: #1a1a2e; }
-        .timeline-content ul {
-            list-style: none; padding: 0; margin: 8px 0 0;
-        }
-        .timeline-content ul li {
-            font-size: 12px; color: var(--text-light); line-height: 1.7;
-            padding-left: 14px; position: relative; margin-bottom: 4px;
-        }
-        .timeline-content ul li::before {
-            content: ''; position: absolute; left: 0; top: 8px;
-            width: 5px; height: 5px; border-radius: 50%; background: var(--primary);
-        }
-        .timeline-tag {
-            display: inline-block; padding: 3px 10px; border-radius: 20px;
-            font-size: 11px; font-weight: 600; margin-top: 10px;
-        }
-        .timeline-phase {
-            text-align: center; font-size: 13px; font-weight: 700;
-            color: var(--primary); padding: 12px 0; margin: 16px auto 8px;
-            max-width: 800px; letter-spacing: 2px;
-        }
 
         /* 团队介绍 */
         .team-section { padding: 65px 5% 40px; background: var(--bg); }
@@ -455,10 +428,6 @@
         .fade-in-right { opacity: 0; transform: translateX(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .fade-in-right.visible { opacity: 1; transform: translateX(0); }
 
-        /* 时间线交错动画 */
-        .timeline-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        .timeline-item.revealed { opacity: 1; transform: translateY(0); }
-
         /* ===== 平板增强（769–1024） ===== */
         @media (min-width: 769px) and (max-width: 1024px) {
             .navbar { padding: 14px 8%; }
@@ -521,15 +490,15 @@
             .stat-number { font-size: 36px; }
             .stat-icon { font-size: 32px; }
             .stat-label { font-size: 14px; }
-            .timeline::before { left: 50%; transform: translateX(-50%); }
-            .timeline-item { align-items: center; margin-bottom: 40px; }
-            .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-            .timeline-dot { left: 50%; transform: translateX(-50%); width: 42px; height: 42px; font-size: 16px; }
-            .timeline-content { width: 42%; margin-left: 0; padding: 22px; }
-            .timeline-content:hover { transform: translateY(-3px); }
-            .timeline-content h3 { font-size: 17px; }
-            .timeline-content ul li { font-size: 13px; }
-            .timeline-phase { font-size: 14px; }
+            .diary-card { flex-direction: row; margin-bottom: 32px; }
+            .diary-photo { width: 42%; min-height: 260px; }
+            .diary-body { width: 58%; padding: 24px; }
+            .diary-card:nth-child(even of .diary-card),
+            .diary-card.even { flex-direction: row-reverse; }
+            .diary-date { font-size: 15px; }
+            .diary-body h3 { font-size: 18px; }
+            .diary-body ul li { font-size: 14px; }
+            .diary-phase { font-size: 14px; padding: 24px 0 16px; }
             .leaders-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .leader-card:last-child { grid-column: span 2; }
             .leader-card { padding: 28px 24px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
@@ -549,8 +518,6 @@
             .gallery-overlay { opacity: 0; padding: 20px; }
             .gallery-item:hover .gallery-overlay { opacity: 1; }
             .gallery-overlay span { font-size: 15px; }
-            .timeline-item { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-            .timeline-item.revealed { opacity: 1; transform: translateY(0); }
             .btn::after {
                 content: ''; position: absolute; top: 0; left: -100%;
                 width: 100%; height: 100%;
@@ -579,7 +546,6 @@
             .slide-dot { width: 10px; height: 10px; }
             .slide-dot.active { width: 30px; }
             .slide-hint { display: flex; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--text-light); z-index: 999; gap: 6px; animation: hintBounce 2s ease-in-out infinite; opacity: 0.6; }
-            .timeline-item:nth-child(even) { flex-direction: row-reverse; }
             .btn::after {
                 content: ''; position: absolute; top: 0; left: -100%;
                 width: 100%; height: 100%;
@@ -689,30 +655,25 @@
             .bg-content-intro .stat-number { font-size: 38px !important; }
             .bg-content-intro .stat-label { font-size: 15px; }
 
-            /* ===== Slide 2: 时间线 ===== */
+            /* ===== Slide 2: 日记卡片 — 桌面 ===== */
             .timeline-section { padding: 100px 10%; }
             .section-header { margin-bottom: 60px; }
             .section-header h2 { font-size: 42px; margin-bottom: 12px; }
             .section-header p { font-size: 18px; max-width: 600px; }
             .section-label { font-size: 14px; padding: 8px 22px; }
-            .timeline { max-width: 1000px; }
-            .timeline::before { left: 50%; transform: translateX(-50%); width: 4px; }
-            .timeline-item { align-items: center; margin-bottom: 50px; opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-            .timeline-dot { left: 50%; width: 52px; height: 52px; font-size: 20px; border-width: 4px; }
-            .timeline-content {
-                width: 42%; margin-left: 0; padding: 32px 36px;
-                border-radius: 24px;
-                transition: transform 0.4s ease, box-shadow 0.4s ease;
-            }
-            .timeline-content:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-            .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-            .timeline-date { font-size: 16px; margin-bottom: 10px; }
-            .timeline-content h3 { font-size: 20px; margin-bottom: 12px; }
-            .timeline-content ul { margin: 12px 0 0; }
-            .timeline-content ul li { font-size: 15px; line-height: 1.9; padding-left: 20px; margin-bottom: 8px; }
-            .timeline-content ul li::before { width: 6px; height: 6px; top: 10px; }
-            .timeline-tag { font-size: 13px; padding: 6px 14px; margin-top: 14px; }
-            .timeline-phase { font-size: 16px; padding: 16px 0; margin: 24px auto 12px; max-width: 1000px; }
+            .diary-list { max-width: 1200px; }
+            .diary-card { flex-direction: row; margin-bottom: 40px; border-radius: 24px; opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.4s ease; }
+            .diary-card.revealed { opacity: 1; transform: translateY(0); }
+            .diary-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+            .diary-card.even { flex-direction: row-reverse; }
+            .diary-photo { width: 45%; min-height: 340px; }
+            .diary-body { width: 55%; padding: 40px 36px; }
+            .diary-date { font-size: 16px; margin-bottom: 10px; }
+            .diary-body h3 { font-size: 22px; margin-bottom: 16px; }
+            .diary-body ul li { font-size: 15px; line-height: 2; padding-left: 22px; margin-bottom: 8px; }
+            .diary-body ul li::before { width: 6px; height: 6px; top: 12px; }
+            .diary-tag { font-size: 13px; padding: 6px 16px; margin-top: 16px; }
+            .diary-phase { font-size: 16px; padding: 32px 0 20px; letter-spacing: 3px; }
 
             /* ===== Slide 3: 团队 ===== */
             .team-section { padding: 100px 10%; }
@@ -827,7 +788,7 @@
                 <canvas id="homeParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;"></canvas>
                 <div style="position:relative;z-index:1;">
                 <h1 style="font-size:24px;line-height:1.25;margin-bottom:8px;color:#1a1a2e;">以<span style="color:#ef4444;">爱</span>为火 · 点亮星河</h1>
-                <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着有着心理困境的儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以专业化服务与持续性陪伴，拓展课外知识，为困境儿童撑起一片成长的天空。</p>
+                <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着有着心理困境的儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以持续性陪伴，拓展课外知识，为困境儿童撑起一片成长的天空。</p>
                 </div>
             </div>
         </div>
@@ -866,7 +827,7 @@
                         <i class="fa-solid fa-quote-right"></i>
                     </div>
                     <p class="bg-desc">
-                        基于此，"宁夏心路"实践团组织10名经岗前培训的志愿者，以专业化服务与持续性陪伴，为爱心小院儿童提供系统性支持。
+                        基于此，"心路"实践团组织10名的志愿者，为爱心小院儿童提供系统性支持。
                     </p>
                 </div>
                 <!-- 归属数据 -->
@@ -891,7 +852,7 @@
                         <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);z-index:0;"></div>
                         <div style="position:relative;z-index:1;">
                             <div class="stat-icon">📚</div>
-                            <div class="stat-number counter" data-target="2" style="color:#fff;">0</div>
+                            <div class="stat-number counter" data-target="5" style="color:#fff;">0</div>
                             <div class="stat-label" style="color:rgba(255,255,255,0.8);">授课天数</div>
                         </div>
                     </div>
@@ -937,19 +898,19 @@
 
     <!-- 日记时间线 -->
     <section class="timeline-section" id="timeline" style="opacity:1;">
-            <div class="section-header">
-                <h2>我们在一起的每一天</h2>
-                <p>从筹备到开营，每一个瞬间都值得铭记</p>
+        <div class="section-header">
+            <h2>我们在一起的每一天</h2>
+            <p>从筹备到开营，每一个瞬间都值得铭记</p>
         </div>
+        <div class="diary-list">
 
-        <!-- 筹备阶段分隔 -->
-        <div class="timeline-phase">📦 筹备阶段</div>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"><i class="fa-solid fa-clipboard-list"></i></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">7月26日</div>
+            <div class="diary-phase">📦 筹备阶段</div>
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月26日</div>
                     <h3>出发前的全面筹备</h3>
                     <ul>
                         <li>队长及外联组与实践地负责人对接，了解实践地情况及往年问题，制定应急预案</li>
@@ -959,20 +920,17 @@
                         <li>设计微电影剧本及素质拓展方案（科学实验/体育活动/文娱）</li>
                         <li>程序开发组开发教学小程序，搜集教学软件资源</li>
                     </ul>
-                    <span class="timeline-tag tag-prep">📋 筹备</span>
+                    <span class="diary-tag">📋 筹备</span>
                 </div>
             </div>
-        </div>
 
-        <!-- 实践阶段分隔 -->
-        <div class="timeline-phase">🚀 实践阶段</div>
-
-        <div class="timeline">
-
-            <div class="timeline-item">
-                <div class="timeline-dot"><i class="fa-solid fa-gift"></i></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">7月27日</div>
+            <div class="diary-phase">🚀 实践阶段</div>
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月27日</div>
                     <h3>初见·你好大山</h3>
                     <ul>
                         <li>分发礼物，与负责人深入了解孩子们具体情况</li>
@@ -980,9 +938,62 @@
                         <li>照片与视频采集同步启动，运营平台宣传上线</li>
                         <li>召开队内会议汇总学生情况，调整活动方案，明确后续教学任务</li>
                     </ul>
-                    <span class="timeline-tag tag-open">🎯 开营</span>
-                    </div>
+                    <span class="diary-tag">🎯 开营</span>
                 </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月28日</div>
+                    <h3>爱心课堂润童心</h3>
+                    <ul>
+                        <li>清晨跟孩子们一起跑早操，感受满满的活力，品尝张妈妈的爱心早餐</li>
+                        <li>传统文化课：小白老师和小张老师讲解传统节日与民俗故事，孩子们争相举手，课堂气氛热烈</li>
+                        <li>网络安全课：小郭老师和小肖老师通过动画短片和真实案例，教孩子们识别网络诈骗套路</li>
+                        <li>生活安全课：队长小殷老师和小高老师讲解用电、交通、防溺水等安全知识</li>
+                        <li>课外活动：篮球、足球、羽毛球齐上阵，整个小院沸腾，孩子们奔跑欢笑，约定明天继续</li>
+                    </ul>
+                    <span class="diary-tag">📖 教学日</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月29日</div>
+                    <h3>朝夕相伴，温柔成长</h3>
+                    <ul>
+                        <li>清晨早操：伴着轻快音乐舒展身体，活力满满开启新一天，晨间律动洒满小院</li>
+                        <li>晨读时光：端正坐姿轻声诵读，朗朗书声萦绕教室，在清晨最好的时光里汲取知识</li>
+                        <li>心理健康课：引导孩子们认识自我、接纳情绪，互动游戏中打开心扉、释放压力</li>
+                        <li>绿植分发：每人一盆小盆栽，嫩绿枝叶勾起了孩子们的好奇心，在心底种下温柔与希望</li>
+                        <li>物理实验课：结合生活场景讲解物理常识，亲手操作器材，发现藏在生活中的科学奥秘</li>
+                    </ul>
+                    <span class="diary-tag">🤍 心灵成长</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月30日</div>
+                    <h3>衣履识华夏，球场跃童心</h3>
+                    <ul>
+                        <li>早晨跑操后诵读《大学》《论语》，琅琅书声回荡小院，辅导课业耐心细致</li>
+                        <li>历史课（魏文彬、张俊豪）：穿越千年看衣食住行变迁，从汉朝曲裾深衣到中山装的"礼义廉耻"，葡萄黄瓜竟是张骞带回的"进口货"，孩子们意犹未尽追问"下节课穿越到哪"</li>
+                        <li>体育课：羽毛球（张俊豪+蔡林泽）、足球（郭塞璇+白云青）、篮球（魏文彬+肖臻峰），还有高炳杰老师教八段锦，古老非遗与青春活力在小院奇妙相遇</li>
+                    </ul>
+                    <span class="diary-tag">🏀 活力体育</span>
+                </div>
+            </div>
+
         </div>
     </section>
             </div><!-- /slide 2 -->
@@ -1086,7 +1097,7 @@
                 <h3>李学伟</h3>
                 <div class="team-role">程序设计组</div>
                 <p>"我十分热爱编程，平时热衷于钻研代码逻辑与功能实现，乐于主动和大家交流思路。遇到问题愿意主动沟通探讨，期待和大家相互学习、共同进步。"</p>
-                </div>
+            </div>
 
         </div>
 
@@ -1116,7 +1127,7 @@
             <a href="#team">团队</a>
             <a href="#gallery">影像</a>
         </div>
-        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made by Lxw❤️</p>
+        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made by Lxw X Clz</p>
     </footer>
             </div><!-- /slide 4 -->
 
@@ -1368,7 +1379,7 @@
                 if (!counterAnimated.has(c)) { counterAnimated.add(c); animateCounter(c); }
             });
             // 时间线条目
-            slide.querySelectorAll('.timeline-item').forEach((item, i) => {
+            slide.querySelectorAll('.diary-card').forEach((item, i) => {
                 if (!item.classList.contains('revealed')) {
                     setTimeout(() => item.classList.add('revealed'), 200 + i * 60);
                 }
@@ -1589,19 +1600,44 @@
 
         document.querySelectorAll('.slide .fade-in, .slide .fade-in-left, .slide .fade-in-right').forEach(el => slideObserver.observe(el));
 
-        // ===== 时间线条目交错动画（幻灯片内） =====
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); timelineObserver.unobserve(entry.target); } });
+        // ===== 日记卡片交错动画 =====
+        const diaryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); diaryObserver.unobserve(entry.target); } });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.timeline-item').forEach((item, i) => {
-            item.style.transitionDelay = (i * 0.06) + 's';
-            timelineObserver.observe(item);
+        document.querySelectorAll('.diary-card').forEach((card, i) => {
+            card.style.transitionDelay = (i * 0.06) + 's';
+            if (i % 2 === 1) card.classList.add('even');
+            diaryObserver.observe(card);
+        });
+
+        // ===== 日记照片自动匹配（images/diary/{月}.{日}.webp） =====
+        document.querySelectorAll('.diary-card').forEach(card => {
+            const dateEl = card.querySelector('.diary-date');
+            if (!dateEl) return;
+            const m = dateEl.textContent.match(/(\d+)月(\d+)日/);
+            if (!m) return;
+            const filename = `images/diary/${m[1]}.${m[2]}.webp`;
+            const photoEl = card.querySelector('.diary-photo');
+            const placeholder = card.querySelector('.diary-photo-placeholder');
+            const img = new Image();
+            img.onload = () => {
+                img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;';
+                photoEl.appendChild(img);
+                if (placeholder) placeholder.style.display = 'none';
+            };
+            img.src = filename;
         });
 
         // ===== 初始化首页 =====
         // ===== 画廊：每次切换到影像页重新随机生成 =====
         const allPhotos = [
+            'images/photo/IMG_20260729_094439_compressed.webp',
+            'images/photo/IMG_20260729_094443_compressed.webp',
+            'images/photo/IMG_20260729_094445_compressed.webp',
+            'images/photo/IMG_20260729_095102_compressed.webp',
+            'images/photo/IMG_20260729_102538_compressed.webp',
+            'images/photo/IMG_20260729_103545_compressed.webp',
             'images/photo/IMG20260727100136.webp',
             'images/photo/IMG20260727101913.webp',
             'images/photo/IMG20260727102432.webp',
@@ -1620,7 +1656,53 @@
             'images/photo/IMG20260728171138.webp',
             'images/photo/IMG20260728182903.webp',
             'images/photo/IMG20260728183940.webp',
-            'images/photo/IMG20260728193919.webp'
+            'images/photo/IMG20260728193919.webp',
+            'images/photo/IMG20260729053618_compressed.webp',
+            'images/photo/IMG20260729054110_compressed.webp',
+            'images/photo/IMG20260729054933_compressed.webp',
+            'images/photo/IMG20260729055024_compressed.webp',
+            'images/photo/IMG20260729055843_compressed.webp',
+            'images/photo/IMG20260729060123_compressed.webp',
+            'images/photo/IMG20260729060337_compressed.webp',
+            'images/photo/IMG20260729074156_compressed.webp',
+            'images/photo/IMG20260729075458_compressed.webp',
+            'images/photo/IMG20260729172702_compressed.webp',
+            'images/photo/IMG20260729173926_compressed.webp',
+            'images/photo/IMG20260729173933_compressed.webp',
+            'images/photo/IMG20260729174055_compressed.webp',
+            'images/photo/IMG20260729174117_compressed.webp',
+            'images/photo/IMG20260729174401_compressed.webp',
+            'images/photo/IMG20260729174517_compressed.webp',
+            'images/photo/IMG20260729174555_compressed.webp',
+            'images/photo/IMG20260729174620_compressed.webp',
+            'images/photo/IMG20260729175330_compressed.webp',
+            'images/photo/IMG20260729180513_compressed.webp',
+            'images/photo/IMG20260729180750_compressed.webp',
+            'images/photo/IMG20260729180819_compressed.webp',
+            'images/photo/IMG20260729180833_compressed.webp',
+            'images/photo/IMG20260729181138_compressed.webp',
+            'images/photo/IMG20260729181151_compressed.webp',
+            'images/photo/IMG20260729181308_compressed.webp',
+            'images/photo/IMG20260729181345_compressed.webp',
+            'images/photo/IMG20260729181401_compressed.webp',
+            'images/photo/IMG20260729181503_compressed.webp',
+            'images/photo/IMG20260729181516_compressed.webp',
+            'images/photo/IMG20260729181724_compressed.webp',
+            'images/photo/IMG20260729181737_compressed.webp',
+            'images/photo/IMG20260729181821_compressed.webp',
+            'images/photo/IMG20260729181924_compressed.webp',
+            'images/photo/IMG20260729181934_compressed.webp',
+            'images/photo/IMG20260729182120_compressed.webp',
+            'images/photo/IMG20260729182152_compressed.webp',
+            'images/photo/IMG20260729182200_compressed.webp',
+            'images/photo/IMG20260729182349_compressed.webp',
+            'images/photo/IMG20260729182406_compressed.webp',
+            'images/photo/IMG20260729182440_compressed.webp',
+            'images/photo/IMG20260729182518_compressed.webp',
+            'images/photo/IMG20260729182759_compressed.webp',
+            'images/photo/IMG20260729183049_compressed.webp',
+            'images/photo/IMG20260729183057_compressed.webp',
+            'images/photo/IMG20260729183439_compressed.webp'
         ];
         const allSizes = [
             { r: 1, c: 1 }, { r: 2, c: 1 }, { r: 1, c: 1 },
