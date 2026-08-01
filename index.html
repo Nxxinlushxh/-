@@ -1383,6 +1383,11 @@
                 slides[prev].classList.remove('exit');
                 isAnimating = false;
                 dots.classList.remove('visible');
+                if (current === 2) {
+                    setTimeout(() => {
+                        shuffle([...allPhotos]).slice(0, 8).forEach(src => { const img = new Image(); img.src = src; });
+                    }, 1000);
+                }
             }, 900);
 
             setTimeout(() => triggerSlideAnimations(current), 500);
@@ -1753,7 +1758,7 @@
         function buildGallery() {
             const grid = document.getElementById('galleryGrid');
             if (!grid) return;
-            const count = Math.min(10, allPhotos.length);
+            const count = Math.min(8, allPhotos.length);
             const picked = shuffle([...allPhotos]).slice(0, count);
             const sizes = shuffle([...allSizes]);
             const frag = document.createDocumentFragment();
