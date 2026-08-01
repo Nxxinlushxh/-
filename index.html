@@ -283,23 +283,28 @@
         .stat-label { font-size: 13px; color: var(--text-light); font-weight: 500; }
 
         /* ===== Slide 2: 日记卡片 ===== */
-        .timeline-section { padding: 65px 5% 40px; background: #fff; }
+        .timeline-section { padding: 55px 5% 40px; background: #fff; }
         .diary-list { max-width: 900px; margin: 0 auto; }
-        .diary-phase { text-align: center; font-size: 13px; font-weight: 700; color: var(--primary); padding: 20px 0 16px; margin: 0 auto; letter-spacing: 2px; }
-        .diary-card { display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; }
-        .diary-photo { width: 100%; min-height: 200px; position: relative; background: #f5f0eb; flex-shrink: 0; }
+        .diary-phase { text-align: center; font-size: 12px; font-weight: 700; color: var(--primary); padding: 16px 0 10px; margin: 0 auto; letter-spacing: 2px; }
+        .diary-card { display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+        .diary-photo { width: 100%; min-height: 140px; position: relative; background: #f5f0eb; flex-shrink: 0; }
         .diary-photo img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
-        .diary-photo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #d0ccc4; font-size: 32px; gap: 6px; }
-        .diary-photo-placeholder span { font-size: 12px; }
-        .diary-body { padding: 20px; }
-        .diary-date { font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
-        .diary-body h3 { font-size: 17px; margin-bottom: 10px; color: #1a1a2e; }
-        .diary-body ul { list-style: none; padding: 0; margin: 8px 0 0; }
-        .diary-body ul li { font-size: 13px; color: var(--text-light); line-height: 1.8; padding-left: 16px; position: relative; margin-bottom: 5px; }
-        .diary-body ul li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
-        .diary-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 12px; background: var(--primary-light); color: var(--primary); }
+        .diary-photo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #d0ccc4; font-size: 28px; gap: 4px; }
+        .diary-photo-placeholder span { font-size: 11px; }
+        .diary-body { padding: 14px 16px; }
+        .diary-date { font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 4px; }
+        .diary-body h3 { font-size: 16px; margin-bottom: 8px; color: #1a1a2e; }
+        .diary-body ul { list-style: none; padding: 0; margin: 6px 0 0; }
+        .diary-body ul li { font-size: 13px; color: var(--text-light); line-height: 1.7; padding-left: 14px; position: relative; margin-bottom: 4px; }
+        .diary-body ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+        .diary-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 10px; background: var(--primary-light); color: var(--primary); }
         .diary-card { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .diary-card.revealed { opacity: 1; transform: translateY(0); }
+        .diary-card.featured { border-left: 3px solid #c0392b; box-shadow: 0 8px 30px rgba(192,57,43,0.1); }
+        .diary-card.featured .diary-date { color: #c0392b; }
+        .diary-card.featured .diary-body ul li::before { background: #c0392b; }
+        .diary-card.featured .diary-tag { background: linear-gradient(135deg, #c0392b, #e74c3c); color: #fff; }
+        .diary-phase-special { color: #c0392b !important; font-size: 13px; letter-spacing: 3px; }
 
         .section-header { text-align: center; margin-bottom: 30px; }
         .section-label {
@@ -354,8 +359,8 @@
         .team-role { color: var(--primary); font-size: 12px; font-weight: 600; margin-bottom: 10px; }
         .team-card p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
         .team-epilogue {
-            max-width: 100%; margin: 64px auto 0;
-            text-align: center; font-size: 12px; color: #5d4037; font-weight: 500;
+            max-width: 100%; margin: 80px auto 0;
+            text-align: center; font-size: 13px; color: #5d4037; font-weight: 500;
         }
 
         /* 照片画廊 */
@@ -499,6 +504,8 @@
             .diary-body h3 { font-size: 18px; }
             .diary-body ul li { font-size: 14px; }
             .diary-phase { font-size: 14px; padding: 24px 0 16px; }
+            .diary-phase-special { font-size: 15px; }
+            .diary-card.featured { border-left: 5px solid #c0392b; }
             .leaders-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .leader-card:last-child { grid-column: span 2; }
             .leader-card { padding: 28px 24px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
@@ -512,7 +519,7 @@
             .team-avatar { width: 80px; height: 80px; }
             .team-card h3 { font-size: 17px; }
             .team-card p { font-size: 14px; }
-            .team-epilogue { font-size: 13px; margin-top: 64px; }
+            .team-epilogue { font-size: 14px; margin-top: 80px; }
             .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
             .gallery-item:hover { transform: scale(1.02); }
             .gallery-overlay { opacity: 0; padding: 20px; }
@@ -674,6 +681,9 @@
             .diary-body ul li::before { width: 6px; height: 6px; top: 12px; }
             .diary-tag { font-size: 13px; padding: 6px 16px; margin-top: 16px; }
             .diary-phase { font-size: 16px; padding: 32px 0 20px; letter-spacing: 3px; }
+            .diary-phase-special { font-size: 17px; letter-spacing: 4px; padding: 36px 0 24px; }
+            .diary-card.featured { border-left: 6px solid #c0392b; box-shadow: 0 12px 40px rgba(192,57,43,0.12); }
+            .diary-card.featured .diary-date { font-size: 17px; }
 
             /* ===== Slide 3: 团队 ===== */
             .team-section { padding: 100px 10%; }
@@ -730,7 +740,7 @@
                 transition: opacity 0.35s ease;
             }
             .team-card:hover::before { opacity: 1; }
-            .team-epilogue { font-size: 15px; max-width: 800px; margin-top: 88px; line-height: 1.8; }
+            .team-epilogue { font-size: 17px; max-width: 800px; margin-top: 104px; line-height: 1.8; }
 
             /* ===== Slide 4: 影像 ===== */
             .gallery-section { padding: 100px 10%; }
@@ -994,6 +1004,24 @@
                 </div>
             </div>
 
+            <div class="diary-phase diary-phase-special">🔴 枸杞特辑</div>
+            <div class="diary-card featured">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">7月31日</div>
+                    <h3>一盏杞红沉岁月，半川黄土写春秋</h3>
+                    <ul>
+                        <li>唐老板与张妈妈带队走进宁夏杞鑫枸杞园，王老板讲解六百年枸杞种植史，中宁被誉为"中国枸杞之乡"</li>
+                        <li>漫步枸杞田间，了解枸杞作为宁夏支柱产业，如何带动石空镇等乡村焕发生机</li>
+                        <li>参观宁夏枸杞文化基地，从《诗经》"言采其杞"到丝路贸易、从养生药理到乡村振兴，一颗红果串起千年文明</li>
+                        <li>教育扶贫与产业振兴紧密相连——爱心小院阻断贫困代际传递，枸杞企业带动一方经济</li>
+                    </ul>
+                    <span class="diary-tag">🔴 特辑</span>
+                </div>
+            </div>
+
         </div>
     </section>
             </div><!-- /slide 2 -->
@@ -1127,7 +1155,7 @@
             <a href="#team">团队</a>
             <a href="#gallery">影像</a>
         </div>
-        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · 用技术连接远方 · Made by Lxw X Clz</p>
+        <p class="footer-copy">© 2026 心路实践团 · 沙海星火小队 · Made by LXW and CLZ</p>
     </footer>
             </div><!-- /slide 4 -->
 
@@ -1702,7 +1730,14 @@
             'images/photo/IMG20260729182759_compressed.webp',
             'images/photo/IMG20260729183049_compressed.webp',
             'images/photo/IMG20260729183057_compressed.webp',
-            'images/photo/IMG20260729183439_compressed.webp'
+            'images/photo/IMG20260729183439_compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnQ2NHeHE4bHZKSHchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnRGNHeHF2OVl3SHchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnRmNHeHE5SkFvSHchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnS2NHeHF0Nlo3SGchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnSGNHeHF0WHNtSHchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RnSWNHeHFCWnlJSGchIQUAcXVuZ3o__compressed.webp',
+            'images/photo/NR8AVjViQ1FBNU5qUTJOVEV3T1RqMmIyeHFVeWZuSUEhIQUAcXVuZ3o__compressed.webp'
         ];
         const allSizes = [
             { r: 1, c: 1 }, { r: 2, c: 1 }, { r: 1, c: 1 },
