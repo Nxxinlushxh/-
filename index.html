@@ -29,7 +29,8 @@
                 radial-gradient(880px 640px at 16% 46%, rgba(52,152,219,0.11), transparent 64%),
                 radial-gradient(820px 600px at 90% 66%, rgba(230,126,34,0.13), transparent 64%),
                 radial-gradient(900px 680px at 44% 96%, rgba(155,89,182,0.11), transparent 66%);
-            background-attachment: scroll;
+            /* fixed：渐变随视口固定，滚动时不重绘（scroll 会整屏反复重绘 5 层径向渐变） */
+            background-attachment: fixed;
         }
 
         /* 全页横向切换 — 移动端优先 */
@@ -148,7 +149,7 @@
                降低填充的同时适当加大模糊，否则背景的花色会穿透文字、影响可读性（两者需同步调）。 */
             --glass-bg: rgba(255,255,255,0.52);       /* 回调：34% 时次级文字对比度仅 2.38，用填充换可读性 */
             --glass-bg-strong: rgba(255,255,255,0.48);/* 浮层面板（原 0.68） */
-            --glass-blur: blur(12px) saturate(165%);  /* 原 9px；透得更多需要更厚的模糊来压住背景 */
+            --glass-blur: blur(10px) saturate(160%);  /* 仅剩导航胶囊与下拉面板使用，半径越大成本越高 */
             --glass-border: 1px solid rgba(255,255,255,0.72);  /* 原 0.6：填充变淡后需略强以维持轮廓 */
             --glass-shadow: 0 8px 32px rgba(120,90,60,0.10);   /* 暖色投影，避免灰头发脏 */
             --glass-radius: 24px;                      /* 胶囊化圆角：区块卡片刻意不用 999px，
@@ -517,6 +518,12 @@
         /* ===== 全站卡片：毛玻璃 + 胶囊圆角 ===== */
         /* 位置很关键：必须放在基础层末尾。同优先级下靠后者生效，
            而这些卡片在上方各自有 background: #fff，若本块写在前面会被它们压掉。 */
+        /* 内容卡片：【不再使用 backdrop-filter】。
+           原因：blur 需要每帧重读背后像素→高斯模糊→合成，页面共 33 张卡片
+           外加导航胶囊与下拉面板共 35 个，滚动时逐帧重算，是卡顿的根源。
+           改为「半透明底 + 亮边框 + 暖投影」模拟玻璃观感——
+           观感接近，但滚动时零额外开销。真正的 backdrop-filter 只保留给
+           导航栏胶囊与下拉面板（固定浮层，观感最依赖它，且不随滚动改尺寸）。 */
         .diary-card,
         .leader-card,
         .team-card,
@@ -524,8 +531,6 @@
         .stat-card,
         .gallery-item {
             background: var(--glass-bg);
-            -webkit-backdrop-filter: var(--glass-blur);
-            backdrop-filter: var(--glass-blur);
             border: var(--glass-border);
             /* !important：各断点里散落着 border-radius（.stat-card 12px、
                .gallery-item var(--radius) 等），不加则圆角无法三端统一 */
@@ -533,21 +538,15 @@
             box-shadow: var(--glass-shadow);
         }
         /* 承载照片的卡片（.stat-card 内联背景图、.gallery-item 内 <img>）：
-           不能用白玻璃填充，否则把图糊成一片白。改为极淡的白 + 更厚模糊，
-           让毛玻璃体现在图片透出来的质感上，靠边框和投影维持轮廓。 */
+           白玻璃填充会把图糊成一片白，故用极淡的白，只靠边框与投影维持轮廓。
+           同样不使用 backdrop-filter（见上方说明）——照片本身已是模糊的「内容」，
+           再叠一层高斯模糊既看不出差别，又白白增加每帧开销。 */
         :where(.stat-card),
         :where(.gallery-item) {
             background: rgba(255,255,255,0.04);
-            -webkit-backdrop-filter: blur(10px) saturate(150%);
-            backdrop-filter: blur(10px) saturate(150%);
         }
 
-        /* 不支持 backdrop-filter 时退回接近不透明的实色，保证可读 */
-        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-            .diary-card, .leader-card, .team-card, .bg-theme-card {
-                background: rgba(255,255,255,0.9);
-            }
-        }
+        /* 卡片已不使用 backdrop-filter，无需回退分支 */
 
         /* ===== 触屏基础：点击目标 / 无 300ms 延迟 / 防误触 ===== */
         .nav-toggle,
@@ -1721,8 +1720,12 @@
         const homePages = document.getElementById('homePages');
         let homePage = 0;
         let homeAnimating = false;
+        let homeUnlockTimer = 0;
         if (homePages) {
-            homePages.addEventListener('transitionend', () => { homeAnimating = false; });
+            homePages.addEventListener('transitionend', function (e) {
+                // 只认容器自身的 transform 过渡，忽略子元素冒泡上来的过渡
+                if (e.target === homePages && e.propertyName === 'transform') homeAnimating = false;
+            });
         }
         function flipHomePage(dir) {
             if (homeAnimating || !homePages) return;
@@ -1735,8 +1738,18 @@
             } else if (dir < 0 && homePage === 1) {
                 homePage = 0; homeAnimating = true;
                 homePages.style.transform = 'translateY(0)';
+            } else {
+                return;
             }
+            /* homeAnimating 的兜底解锁。原来只依赖 transitionend —— 若过渡因任何原因
+               未触发（被打断、浏览器跳过、时长被改），它会永久停在 true，
+               此后所有翻页调用都静默失效，表现就是「翻过去就翻不回来」。
+               过渡时长 0.7s，这里留 900ms 兜底。 */
+            clearTimeout(homeUnlockTimer);
+            homeUnlockTimer = setTimeout(function () { homeAnimating = false; }, 900);
         }
+        // 触摸被系统取消（来电、多指、手势识别等）时也要解开拖动锁，否则后续手势全部失效
+        track.addEventListener('touchcancel', function () { isDragging = false; touchLocked = false; }, { passive: true });
 
         // 创建原点
         slides.forEach((_, i) => {
@@ -1921,18 +1934,18 @@
         let touchStartX = 0, touchStartY = 0;
         let touchBaseX = 0, touchBaseY = 0;
         let touchLocked = false;
-        let storyAtTopStart = false, storyAtBottomStart = false;
+        /* 两个阈值分开：
+           - 横向切页沿用 80px，避免误触；
+           - 纵向翻页（首页上下两屏、日记等页翻到相邻页）用 40px ——
+             原实现两种情况共用 80px，用户要滑很长一段才有反应，
+             表现为「翻页吃力」。 */
         const TOUCH_THRESHOLD = 80;
+        const FLIP_THRESHOLD = 40;
         track.addEventListener('touchstart', (e) => {
             touchStartX = touchBaseX = e.touches[0].clientX;
             touchStartY = touchBaseY = e.touches[0].clientY;
             touchLocked = false;
             isDragging = true;
-            if (current === 0 && homePage === 1 && homePages) {
-                const story = homePages.children[1];
-                storyAtTopStart = story.scrollTop <= 0;
-                storyAtBottomStart = story.scrollTop + story.clientHeight >= story.scrollHeight - 10;
-            }
         }, { passive: true });
         track.addEventListener('touchmove', (e) => {
             if (!isDragging || touchLocked) return;
@@ -1945,20 +1958,29 @@
                     goToSlide(dx < 0 ? current + 1 : current - 1);
                 }
             } else if (current === 0) {
+                /* 滚动位置在【手势当场】重算，而不是用 touchstart 时的快照。
+                   旧实现取按下那一刻的值，而移动端惯性滚动会让位置继续变化；
+                   且用户「先点停再上滑」时快照为未到顶，翻回首页的判定直接不成立 ——
+                   这正是「第二页翻不回来」的主因。 */
+                const story = homePages && homePages.children[1];
+                const top = !story || story.scrollTop <= 0;
+                const bottom = !story || (story.scrollTop + story.clientHeight >= story.scrollHeight - 2);
+                const overflow = story ? story.scrollHeight > story.clientHeight + 1 : false;
                 if (homePage === 0) {
-                    if (Math.abs(dy) > TOUCH_THRESHOLD) { touchLocked = true; flipHomePage(1); }
+                    // 首页首屏：只能向下翻到故事页（没有可滚动内容）
+                    if (dy > FLIP_THRESHOLD) { touchLocked = true; flipHomePage(1); }
                 } else {
-                    if (dy > 0 && Math.abs(dy) > TOUCH_THRESHOLD) {
-                        if (storyAtBottomStart) { touchLocked = true; goToSlide(1); }
-                        else if (storyAtTopStart) { touchLocked = true; flipHomePage(-1); }
-                    }
+                    // 故事页：向下滑且已在底部 → 进入「背景」页；向上滑且已在顶部 → 翻回首页首屏
+                    if (!overflow && dy > FLIP_THRESHOLD) { touchLocked = true; goToSlide(1); }
+                    else if (dy > FLIP_THRESHOLD && bottom) { touchLocked = true; goToSlide(1); }
+                    else if (dy < -FLIP_THRESHOLD && top) { touchLocked = true; flipHomePage(-1); }
                 }
             } else {
                 const atTop = slide.scrollTop <= 0;
                 const atBottom = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 2;
                 if ((dy > 0 && atBottom) || (dy < 0 && atTop)) {
                     touchBaseY = cy;
-                    if (Math.abs(dy) > TOUCH_THRESHOLD) {
+                    if (Math.abs(dy) > FLIP_THRESHOLD) {
                         touchLocked = true;
                         goToSlide(dy > 0 ? current + 1 : current - 1);
                     }
