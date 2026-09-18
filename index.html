@@ -1,21 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>心路实践团 · 沙海星火 - 支教日记</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 标题装饰字体：马善政毛笔楷书，全站标题（首页主标题 / 区块标题 / 日记标题 / 成员名）共用。
+         text= 只请求这些标题用到的 191 个字（实测字体文件 82KB），而不是整个中文字库（数 MB）。
+         ⚠️ 新增或改动任何标题文案后，必须把新字补进下面 text= 参数，否则新字会掉回系统楷体兜底。 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap&text=%C2%B7%E4%B8%80%E4%B8%87%E4%B8%89%E4%B8%8A%E4%B8%B9%E4%B8%BA%E4%B8%BB%E4%B9%90%E4%B9%A1%E4%BA%8B%E4%BA%91%E4%BA%AE%E4%BA%BA%E4%BB%8A%E4%BB%A5%E4%BC%9F%E4%BC%A0%E4%BC%B4%E4%BD%99%E4%BF%8A%E5%85%89%E5%85%B1%E5%86%99%E5%88%9B%E5%88%9D%E5%8A%9B%E5%8A%A8%E5%8A%A9%E5%8D%81%E5%8D%83%E5%8D%8A%E5%8D%8E%E5%8F%A4%E5%8F%B0%E5%90%8C%E5%90%91%E5%90%AF%E5%96%84%E5%9B%AD%E5%9C%9F%E5%9C%BA%E5%9F%8E%E5%A1%9E%E5%A2%A8%E5%A3%B0%E5%A4%87%E5%A4%8F%E5%A6%82%E5%AD%90%E5%AD%A6%E5%AE%9E%E5%B0%BA%E5%B1%95%E5%B1%B1%E5%B2%81%E5%B3%B0%E5%B7%9D%E5%B9%B4%E5%BC%A0%E5%BD%A9%E5%BD%AC%E5%BD%B1%E5%BE%85%E5%BE%AE%E5%BF%83%E6%83%B3%E6%84%88%E6%84%8F%E6%88%90%E6%89%80%E6%8B%BC%E6%90%8F%E6%90%BA%E6%96%87%E6%97%A5%E6%98%9F%E6%98%A0%E6%98%A5%E6%99%9A%E6%99%A8%E6%99%BA%E6%9C%88%E6%9D%8E%E6%9D%9E%E6%9D%B0%E6%9E%97%E6%9E%B8%E6%A0%AA%E6%A1%83%E6%A2%A6%E6%A4%8D%E6%AD%8C%E6%AE%B5%E6%B2%89%E6%B2%99%E6%B2%B3%E6%B3%BD%E6%B5%B7%E6%B6%9B%E6%B6%A6%E7%81%AB%E7%82%B3%E7%82%B9%E7%88%B1%E7%89%B9%E7%90%83%E7%90%85%E7%92%87%E7%93%9C%E7%94%9C%E7%94%B0%E7%95%99%E7%96%97%E7%99%BD%E7%9B%8F%E7%9B%9B%E7%9C%9F%E7%A7%8B%E7%A7%8D%E7%A7%91%E7%A8%8B%E7%A8%9A%E7%AB%9E%E7%AB%A5%E7%AC%91%E7%AC%94%E7%AC%9B%E7%AD%B9%E7%B3%BB%E7%BA%A2%E7%BB%98%E7%BB%B3%E7%BB%B8%E7%BB%BF%E7%BC%98%E7%BC%AA%E8%81%9A%E8%82%96%E8%84%89%E8%87%BB%E8%8A%92%E8%90%BD%E8%94%A1%E8%96%AA%E8%A1%8C%E8%A2%8D%E8%A2%96%E8%A5%BF%E8%A7%81%E8%AE%B2%E8%AF%AD%E8%AF%B4%E8%AF%BB%E8%B1%AA%E8%B5%9B%E8%B5%B4%E8%B5%B7%E8%B6%A3%E8%B7%B5%E8%B8%8F%E8%BE%91%E8%BF%90%E8%BF%B9%E9%80%90%E9%81%8D%E9%81%97%E9%83%AD%E9%87%87%E9%94%8B%E9%95%BF%E9%97%B4%E9%98%B3%E9%98%B6%E9%99%A2%E9%99%B6%E9%9A%8F%E9%9C%9E%E9%9D%92%E9%9D%9E%E9%9F%B3%E9%9F%B5%E9%A2%98%E9%A2%9C%E9%A3%8E%E9%A3%9E%E9%AA%84%E9%AB%98%E9%AD%8F%E9%BB%84%EF%BC%8C">
     <link rel="preload" as="image" href="images/home/bg.webp">
     <link rel="preload" as="image" href="images/home/bg2.webp">
     <link rel="preload" as="image" href="images/home/bg3.webp">
     <style>
         * { box-sizing: border-box; }
-        body { font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; background: #faf8f5; color: #2c3e50; overflow-x: hidden; }
+        /* 页面底：多层柔和径向渐变。毛玻璃必须要有东西可透才有意义——
+           纯色底上加 backdrop-filter 只会得到发白的平块，故先铺这层彩色底。 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            color: #2c3e50;
+            overflow-x: hidden;
+            background-color: #faf8f5;
+            background-image:
+                radial-gradient(900px 620px at 8% 4%, rgba(230,126,34,0.16), transparent 62%),
+                radial-gradient(760px 560px at 94% 14%, rgba(46,204,113,0.13), transparent 62%),
+                radial-gradient(880px 640px at 16% 46%, rgba(52,152,219,0.11), transparent 64%),
+                radial-gradient(820px 600px at 90% 66%, rgba(230,126,34,0.13), transparent 64%),
+                radial-gradient(900px 680px at 44% 96%, rgba(155,89,182,0.11), transparent 66%);
+            background-attachment: scroll;
+        }
 
         /* 全页横向切换 — 移动端优先 */
         html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; max-width: 100vw; }
         .slides-wrapper {
             position: relative; width: 100vw; height: 100vh;
+            height: 100dvh; /* 地址栏可见时也贴合可视区，底部不再被推出屏幕 */
             overflow: hidden; max-width: 100vw;
         }
         .slides-track {
@@ -24,7 +45,8 @@
             will-change: transform;
         }
         .slide {
-            width: 100vw; max-width: 100vw; height: 100vh; overflow-y: auto; overflow-x: hidden;
+            width: 100vw; max-width: 100vw; height: 100vh;
+            height: 100dvh; overflow-y: auto; overflow-x: hidden;
             flex-shrink: 0; position: relative;
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
@@ -116,58 +138,161 @@
             --accent: #2ecc71;
             --accent2: #3498db;
             --text: #2c3e50;
-            --text-light: #7f8c8d;
+            --text-light: #7f8c8d;   /* 恢复原值。该灰在纯白底上上限仅 3.44:1，靠改灰度无法达标，故不改动观感 */
             --bg: #faf8f5;
             --card-bg: #ffffff;
             --shadow: 0 10px 40px rgba(0,0,0,0.08);
             --shadow-hover: 0 20px 60px rgba(0,0,0,0.12);
-            --radius: 20px;
+            /* ===== 毛玻璃风格 token ===== */
+            /* 透明度越高 = 白fill 越少 = 背后内容透出越多。
+               降低填充的同时适当加大模糊，否则背景的花色会穿透文字、影响可读性（两者需同步调）。 */
+            --glass-bg: rgba(255,255,255,0.52);       /* 回调：34% 时次级文字对比度仅 2.38，用填充换可读性 */
+            --glass-bg-strong: rgba(255,255,255,0.48);/* 浮层面板（原 0.68） */
+            --glass-blur: blur(12px) saturate(165%);  /* 原 9px；透得更多需要更厚的模糊来压住背景 */
+            --glass-border: 1px solid rgba(255,255,255,0.72);  /* 原 0.6：填充变淡后需略强以维持轮廓 */
+            --glass-shadow: 0 8px 32px rgba(120,90,60,0.10);   /* 暖色投影，避免灰头发脏 */
+            --glass-radius: 24px;                      /* 胶囊化圆角：区块卡片刻意不用 999px，
+                                                          否则大块元素会变成怪异药丸 */
+            --radius: 18px;          /* 统一卡片圆角（原 20px，大圆角在密集卡片里偏软） */
+            --radius-sm: 12px;       /* 小元素：标签、头像、缩略图 */
+            --space: 18px;           /* 栅格间距基数，全站成阶 */
+            /* 首页主标题字体：书法体在前，后面是风格相近的系统中文字体兜底 */
+            --hero-font: 'Ma Shan Zheng', 'STXingkai', '华文行楷', 'KaiTi', '楷体', 'STKaiti', serif;
             --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* 刘海屏 / 手势条安全区（非全面屏设备为 0） */
+            --sat: env(safe-area-inset-top, 0px);
+            --sab: env(safe-area-inset-bottom, 0px);
         }
+
+        /* 全站标题统一用首页那款毛笔楷书。
+           放在基础层（非媒体查询），三端一致；断点里只调字号、不重复字体。
+           emoji 与数字不在字体子集内，会自动回落到后面的字体栈，显示正常。 */
+        h1, h2, h3 {
+            font-family: var(--hero-font);
+            font-weight: 400;
+        }
+
+        /* 首页主标题：基础层只定颜色，字号交给各断点。
+           （原为内联样式，改成类选择器后必须在基础层重设，否则 PC/平板会丢色） */
+        .home-text h1 { color: #1a1a2e; }
+        .hl-accent { color: #ef4444; }
+
+        /* ===== 需要压在玻璃上的内容必须保持自己的底色/色值 ===== */
+        /* 深色底：不能被玻璃规则冲掉 */
+        .footer { background: #1a1a2e; }
+        /* 浅色实底：需要深色文字，否则在玻璃上对比度不足 */
+        .diary-tag { background: var(--primary-light); color: var(--primary-dark); }
+        .section-label { background: var(--primary-light); color: var(--primary-dark); }
+        .btn { background: var(--primary); color: #fff; }
+        .nav-links a.active { background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; }
+        .leader-badge { background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; }
+        .diary-card.featured .diary-tag { background: linear-gradient(135deg, #c0392b, #e74c3c); color: #fff; }
 
         /* 导航栏 */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 5%; background: rgba(255,255,255,0.35);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            /* 胶囊：左右留边、圆角、内边距仅 4px —— 外观上正好围住内容，
+               从结构上消除「通栏长条比内容多出一截」的问题。 */
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
+            --nav-pad: 10px;   /* 图标左对齐基准；断点内改这一个值即可 */
+            padding: 4px var(--nav-pad);
+            background: transparent;
+            border-bottom: none;
             transition: var(--transition);
-            box-shadow: 0 2px 30px rgba(0,0,0,0.05);
+            /* 显式建立层叠上下文：让 ::before(z-index:0) 稳定垫在内容之下，
+               不依赖「fixed 定位会形成层叠上下文」这一隐式行为 */
+            isolation: isolate;
         }
+        /* 胶囊底：独立成层，便于毛玻璃与圆角在滚动时才出现 */
+        .navbar::before {
+            content: ''; position: absolute; inset: 0; border-radius: 999px;
+            background: var(--glass-bg-strong);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--glass-shadow);
+            pointer-events: none; z-index: 0;
+        }
+        /* 只抬升内容层；不能用 `.navbar > *` —— .nav-links 是 absolute 定位的下拉面板，
+           被改成 relative 后会变成 flex 行内元素，撑开胶囊高度并挤乱布局 */
+        .navbar > .logo,
+        .navbar > .nav-toggle,
+        .navbar > .nav-links {
+            z-index: 1;
+        }
+        .navbar > .logo,
+        .navbar > .nav-toggle {
+            position: relative;
+        }
+        /* 图标字号跟随导航栏：各断点 .navbar 未设 font-size，故继承 body（16px）。
+           若希望与「沙海星火」同字号，在断点里另行指定即可。 */
         .logo {
             font-size: 17px; font-weight: 800; letter-spacing: 1px;
         }
+        /* 「沙海星火」四字居中：
+           原布局靠 space-between 把 logo 顶在左端，故把 logo 块绝对定位到导航栏中心。
+           图标已独立绝对定位到最左端，不在本块内，故这里不需要任何补偿偏移。 */
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
         .logo span {
-            background: linear-gradient(135deg, #e67e22, #2ecc71);
+            /* 提高饱和度而非亮度：#e67e22/#2ecc71 的 H、V 保持不变，仅把 S 拉满（85→100、77→100）。
+               这样颜色更「艳」而不会更「浅」——后者会让本就不足的对比度（2.03 / 1.64）进一步恶化。 */
+            background: linear-gradient(135deg, #e86f00, #00b85c);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .logo i { color: #e67e22; margin-right: 6px; }
-        .nav-links { display: flex; flex-direction: column; align-items: center; gap: 4px; list-style: none;
-            position: absolute; top: 100%; left: 0; right: 0; background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); max-height: 0; opacity: 0; overflow: hidden;
+        /* 书本图标贴在导航栏最左端。
+           必须是 .navbar 的直接子元素：若留在 .logo 内，可定位祖先会是那个被居中的
+           .logo（宽度收缩为文字宽），left 便相对文字左端计算，图标会压到文字上。
+           位置用 --nav-pad 跟随胶囊内边距（断点里改这一个值即可）。
+           font-size: 1em 继承 .navbar 字号，随断点自动缩放。 */
+        .logo-mark {
+            position: absolute;
+            left: var(--nav-pad);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;   /* 与 .logo 同字号，随断点同步调整 */
+            color: #e86f00;
+            z-index: 1;
+        }
+        /* 下拉面板：与导航栏胶囊同一套玻璃语言（半透明 + 模糊 + 圆角 + 暖色投影）。
+           原先近乎实白、直角、通栏，和胶囊放在一起像两块不同的东西。
+           注：平板与 PC 断点会把这里改成 position:static、background:none，
+           即变成行内导航，不受本规则影响。 */
+        .nav-links { display: flex; flex-direction: column; align-items: center; gap: 6px; list-style: none;
+            /* --nav-glass 是本元素自己的开关：手机为 1（玻璃面板），
+               平板/PC 断点置 0 —— 那两端它是行内导航，本就不该有边框、模糊与圆角。
+               用一个变量控制，比在各断点逐个复位 border/backdrop-filter 更不易漏。 */
+            --nav-glass: 1;
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: var(--glass-bg-strong);
+            -webkit-backdrop-filter: blur(calc(var(--nav-glass) * 14px)) saturate(calc(100% + var(--nav-glass) * 60%));
+            backdrop-filter: blur(calc(var(--nav-glass) * 14px)) saturate(calc(100% + var(--nav-glass) * 60%));
+            border: calc(var(--nav-glass) * 1px) solid rgba(255,255,255,calc(var(--nav-glass) * 0.6));
+            border-radius: calc(var(--nav-glass) * var(--glass-radius));
+            box-shadow: var(--glass-shadow);
+            max-height: 0; opacity: 0; overflow: hidden;
             padding: 0 16px; pointer-events: none;
             transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease; }
         .nav-links.open { max-height: 500px; opacity: 1; padding: 16px; pointer-events: auto; }
         .nav-links a {
-            text-decoration: none; color: #555; font-weight: 600; font-size: 15px;
+            text-decoration: none; color: #4a4038; font-weight: 600; font-size: 15px;   /* 暖调深褐：比纯灰更「有色」，同时保证可读性 */
             padding: 10px 20px; border-radius: 50px; transition: var(--transition);
             width: 100%; text-align: center;
         }
         .nav-links a.active {
-            color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12);
+            color: #fff; background: linear-gradient(135deg, #e86f00, #f39c12);
         }
-        .nav-toggle { display: block; font-size: 22px; cursor: pointer; color: #555; background: none; border: none; }
+        .nav-toggle { display: block; font-size: 22px; cursor: pointer; color: #4a4038; background: none; border: none; }
 
-        /* 陀螺仪视差 */
-        .tilt-card { will-change: transform; }
+
+
 
         /* 实践背景 */
-        .bg-section { padding: 55px 5% 40px; background: #fff; }
+        .bg-section { padding: 56px 5% 44px; background: transparent; }
         .bg-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
         .bg-location {
             display: inline-flex; align-items: center; gap: 6px;
@@ -187,12 +312,11 @@
         .bg-quote::before, .bg-quote::after { display: none; }
         .bg-quote .fa-quote-left, .bg-quote .fa-quote-right { display: none; }
         .bg-themes {
-            display: grid; grid-template-columns: 1fr; gap: 12px;
+            display: grid; grid-template-columns: 1fr; gap: var(--space);
         }
         .bg-theme-card {
-            background: #fff; border-radius: 12px; padding: 22px 18px;
+            padding: 22px 18px;
             text-align: center;
-            border: 1px solid #eee;
         }
         .bg-theme-icon { font-size: 32px; margin-bottom: 10px; }
         .bg-theme-card h3 { font-size: 15px; margin-bottom: 6px; color: #1a1a2e; }
@@ -200,7 +324,7 @@
 
         /* 数据统计 */
         .stats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space);
             max-width: 1000px; margin: 36px auto 0;
         }
         .stat-card {
@@ -213,10 +337,11 @@
         .stat-label { font-size: 12px; color: rgba(255,255,255,0.85); font-weight: 500; }
 
         /* ===== Slide 2: 日记卡片 ===== */
-        .timeline-section { padding: 55px 5% 40px; background: #fff; }
+        .timeline-section { padding: 56px 5% 44px; background: transparent; }
         .diary-list { max-width: 900px; margin: 0 auto; }
         .diary-phase { text-align: center; font-size: 12px; font-weight: 700; color: var(--primary); padding: 16px 0 10px; margin: 0 auto; letter-spacing: 2px; }
-        .diary-card { display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; }
+        /* 背景/圆角/边框/阴影统一由基础层末尾的玻璃块提供 */
+        .diary-card { display: flex; flex-direction: column; margin-bottom: var(--space); overflow: hidden; }
         .diary-photo { width: 100%; min-height: 140px; position: relative; background: #f5f0eb; flex-shrink: 0; }
         .diary-photo img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
         .diary-photo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #d0ccc4; font-size: 28px; gap: 4px; }
@@ -246,16 +371,16 @@
         .section-header p { color: var(--text-light); font-size: 14px; max-width: 500px; margin: 0 auto; }
 
         /* 团队介绍 */
-        .team-section { padding: 65px 5% 40px; background: var(--bg); }
+        .team-section { padding: 56px 5% 44px; background: transparent; }
         .team-emblem { text-align: center; margin-bottom: 20px; }
         .team-emblem img { width: 130px; height: auto; display: inline-block; border-radius: 50%; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
         .leaders-grid {
             display: grid; grid-template-columns: 1fr;
-            gap: 20px; max-width: 900px; margin: 0 auto 40px;
+            gap: var(--space); max-width: 900px; margin: 0 auto 40px;
+            align-items: start;
         }
         .leader-card {
-            background: #fff; border-radius: var(--radius); padding: 24px 16px; text-align: center;
-            box-shadow: var(--shadow); position: relative;
+            padding: 24px 16px; text-align: center; position: relative;
         }
         .leader-badge {
             display: inline-block; padding: 4px 14px; border-radius: 50px;
@@ -271,11 +396,11 @@
         .leader-card p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
         .team-grid {
             display: grid; grid-template-columns: 1fr;
-            gap: 20px; max-width: 1100px; margin: 0 auto;
+            gap: var(--space); max-width: 1100px; margin: 0 auto;
+            align-items: start;
         }
         .team-card {
-            background: #fff; border-radius: var(--radius); padding: 24px 16px; text-align: center;
-            box-shadow: var(--shadow); position: relative; overflow: hidden;
+            padding: 24px 16px; text-align: center; position: relative; overflow: hidden;
         }
         .team-avatar {
             width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 16px;
@@ -296,9 +421,9 @@
         }
 
         /* 照片画廊 */
-        .gallery-section { padding: 65px 5% 40px; background: #fff; }
+        .gallery-section { padding: 56px 5% 44px; background: transparent; }
         .gallery-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
             max-width: 1100px; margin: 0 auto;
             grid-auto-flow: dense;
         }
@@ -309,7 +434,9 @@
         .gallery-item img {
             width: 100%; height: 100%; object-fit: cover; display: block;
         }
-        .gallery-item:hover { transform: scale(1.02); }
+        @media (hover: hover) and (pointer: fine) {
+            .gallery-item:hover { transform: scale(1.02); }
+        }
         .lightbox {
             display: none; position: fixed; inset: 0; z-index: 2000;
             background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
@@ -334,13 +461,223 @@
         .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 11px; }
         .footer-copy { color: rgba(255,255,255,0.4); font-size: 10px; }
 
+        /* ===== Slide 0 首页：文字叠加在图片之上 ===== */
+        /* 原来图片与文字是上下两块 flex 兄弟，中间只靠一层渐隐色带过渡，
+           观感仍是「一块图 + 一块字」，故产生割裂。
+           改为：图片占满整屏，文字绝对定位覆盖其下半部，并用暗色渐变压住底片保证可读。
+           位置很关键：本块必须在 (min-width:1025px) 之前 —— PC 块内的复位规则
+           与这里同优先级，靠源码顺序取胜；写在 PC 块之后会把桌面版也覆盖掉。
+           注：内联样式优先级高于类选择器，故 padding / position 需 !important，且已改到标记上。 */
+        .home-page0 { position: relative; }
+        /* 图片铺满屏幕顶端到底部：胶囊浮在其上，不再把图挤到导航栏下方 */
+        /* 三张图改为左右并排的竖向长条（原为上下三格叠放）。
+           原布局每格又宽又扁（PC 上宽高比达 4.8:1），cover 会纵向裁掉约 72%；
+           改成竖幅后改由横向裁切，纵向完整保留，更贴合竖构图。 */
+        .home-photos {
+            flex: 1 1 100% !important;
+            min-height: 0;
+            flex-direction: row !important;
+        }
+        /* 各占三等分宽度、铺满整屏高度。
+           min-width: 0 必须给：flex 子项默认 min-width:auto，图片的固有宽度会把三列撑破。
+           注意：手机端会被 ≤768 的媒体查询改回「上下叠放」，原因见那条规则。 */
+        .home-photos > div { flex: 1 1 0 !important; min-width: 0 !important; min-height: 0 !important; }
+        .home-text {
+            position: absolute !important;
+            left: 0; right: 0; bottom: 0;
+            overflow: visible !important;
+            z-index: 2;
+            color: #fff;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            /* 下内边距避开底部圆点；上方 15vh 让渐变压暗区有过渡余地 */
+            padding: 15vh 6% calc(64px + var(--sab)) !important;
+            text-align: center !important;
+            background: linear-gradient(to bottom, rgba(26,26,46,0) 0%, rgba(26,26,46,0.30) 38%, rgba(26,26,46,0.72) 100%);
+        }
+        /* 首页配图基准取景：居中。
+           必须加 !important：同一元素上的 object-fit 是内联样式，
+           类选择器优先级低于内联样式，不加则本规则整个不生效。
+           横向偏移只在「三列竖排」下有效（见 769px 断点）——
+           手机叠放时容器比图更宽，横向没有可裁空间，改横向值不会有任何变化。 */
+        .home-img { object-position: center center !important; }
+
+        /* 显示顺序调为 3 → 1 → 2（bg3、bg、bg2）。
+           用 flex order 而非改动标记：DOM 顺序与资源引用都不动，只换显示次序。
+           注意 order 作用于「已应用 order 的弹性子项」之间的相对次序——
+           这里三个子项都显式设了值，故完全按 3/1/2 排列。 */
+        .home-photos > div:nth-child(1) { order: 2; }   /* bg  → 第 2 位 */
+        .home-photos > div:nth-child(2) { order: 3; }   /* bg2 → 第 3 位 */
+        .home-photos > div:nth-child(3) { order: 1; }   /* bg3 → 第 1 位 */
+
+        /* 第三张图内原有的渐隐带是给旧版「上下分块」用的，覆盖态下会与暗色渐变打架 */
+        .home-photos > div > div { display: none !important; }
+        .home-text h1 { color: #fff !important; text-shadow: 0 2px 16px rgba(0,0,0,0.45); }
+        .home-text p { color: rgba(255,255,255,0.94) !important; text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+
+        /* ===== 全站卡片：毛玻璃 + 胶囊圆角 ===== */
+        /* 位置很关键：必须放在基础层末尾。同优先级下靠后者生效，
+           而这些卡片在上方各自有 background: #fff，若本块写在前面会被它们压掉。 */
+        .diary-card,
+        .leader-card,
+        .team-card,
+        .bg-theme-card,
+        .stat-card,
+        .gallery-item {
+            background: var(--glass-bg);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            /* !important：各断点里散落着 border-radius（.stat-card 12px、
+               .gallery-item var(--radius) 等），不加则圆角无法三端统一 */
+            border-radius: var(--glass-radius) !important;
+            box-shadow: var(--glass-shadow);
+        }
+        /* 承载照片的卡片（.stat-card 内联背景图、.gallery-item 内 <img>）：
+           不能用白玻璃填充，否则把图糊成一片白。改为极淡的白 + 更厚模糊，
+           让毛玻璃体现在图片透出来的质感上，靠边框和投影维持轮廓。 */
+        :where(.stat-card),
+        :where(.gallery-item) {
+            background: rgba(255,255,255,0.04);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            backdrop-filter: blur(10px) saturate(150%);
+        }
+
+        /* 不支持 backdrop-filter 时退回接近不透明的实色，保证可读 */
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .diary-card, .leader-card, .team-card, .bg-theme-card {
+                background: rgba(255,255,255,0.9);
+            }
+        }
+
+        /* ===== 触屏基础：点击目标 / 无 300ms 延迟 / 防误触 ===== */
+        .nav-toggle,
+        .nav-links a,
+        .slide-arrow,
+        .slide-dot,
+        .lightbox-close,
+        .gallery-item,
+        .btn {
+            touch-action: manipulation;
+        }
+        .nav-toggle,
+        .lightbox-close,
+        .gallery-item {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 悬停反馈用 hover 能力查询包住 —— 触屏上 :hover 点一次会一直粘住，
+           改为 :active 即时按压反馈。此块在 PC（鼠标）下不生效。
+           注意 .team-card / .leader-card 带 tilt-card，transform 由视差脚本每帧写入，
+           不能在这里改，故不列入。 */
+        @media (hover: none) {
+            .diary-card:active,
+            .bg-theme-card:active,
+            .stat-card:active {
+                transform: scale(0.985);
+                transition: transform 0.12s ease;
+            }
+            .gallery-item:active { transform: scale(0.97); }
+        }
+
+        /* ===== 移动端精修（≤768） ===== */
+        @media (max-width: 768px) {
+            /* 首页配图回到「上下三格」：手机屏宽 390px 三列后每列仅 130px，
+               而图片要撑满整屏高（844px），cover 会把画面横向裁掉约 88%——比原先更糟。
+               窄屏上叠放反而每格更宽（满宽 × 约 1/3 屏高），裁切更少。 */
+            .home-photos { flex-direction: column !important; }
+            .home-photos > div { flex: 1 1 0 !important; min-height: 0 !important; }
+            .navbar { padding: 4px var(--nav-pad); }
+            /* 下拉菜单的玻璃样式由基础层统一定义，此处只需保证与胶囊同宽（left/right:0） */
+            .nav-links { left: 0; right: 0; }
+            @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+                .navbar::before { background: rgba(255,250,240,0.95); }
+            }
+
+            /* 首页主标题：手写书法体 + 流体字号。
+               毛笔字面比黑体宽约 2%，用 clamp 随屏宽伸缩，比在 340/360px 处硬跳档更顺；
+               下限 28px 保证 320px 极窄屏也能放下，上限 36px 避免大屏上喧宾夺主。 */
+            /* 首页主标题：手写书法体，单行不折。
+               标题含 8 汉字 + 「·」与空格，约 9.64em 宽；字号取 8.4vw 时标题宽约 0.81×屏宽，
+               在 320–430px 全区间留 14% 余量，即使书法字面比估算偏宽也不会折行。 */
+            .home-text h1 {
+                font-size: clamp(25px, 8.0vw, 36px);
+                line-height: 1.3; letter-spacing: 0.5px;
+                margin-bottom: 10px;
+            }
+
+            .nav-toggle {
+                width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+                font-size: 20px; margin-right: -10px; border-radius: 50%;
+            }
+            .nav-links a { font-size: 15px; padding: 13px 20px; }
+            .nav-links.open { padding: 12px 14px calc(12px + var(--sab)); }
+
+            /* 底部导航：圆点加大、留出手势条 */
+            .slide-dots { bottom: calc(12px + var(--sab)); gap: 9px; }
+            .slide-dot { width: 9px; height: 9px; }
+            .slide-dot.active { width: 26px; }
+
+            /* 左右箭头：缩小并贴边，减少对正文的视觉侵入 */
+            .slide-arrow { width: 34px; height: 34px; font-size: 13px; }
+            .slide-arrow-prev { left: 5px; }
+            .slide-arrow-next { right: 5px; }
+
+            /* 章节留白收紧，首屏信息更集中 */
+            .bg-section { padding: 46px 5% calc(34px + var(--sab)); }
+            .timeline-section { padding: 50px 5% calc(34px + var(--sab)); }
+            .team-section { padding: 52px 5% calc(34px + var(--sab)); }
+            .gallery-section { padding: 52px 5% calc(34px + var(--sab)); }
+            .bg-container { gap: 30px; }
+            .section-header { margin-bottom: 24px; }
+            .section-header h2 { font-size: 25px; letter-spacing: 1px; }
+            .section-header p { font-size: 14px; }
+
+
+            /* 正文与卡片可读性：13px → 14px，行高放宽 */
+            .bg-desc { font-size: 14.5px; line-height: 1.85; }
+            .diary-body { padding: 16px; }
+            .diary-body ul li { font-size: 14px; line-height: 1.72; }
+            .diary-body h3 { font-size: 16.5px; }
+            .diary-photo { min-height: 170px; }
+            .leader-card { padding: 24px 18px; }
+            .leader-card p, .team-card p { font-size: 13.5px; line-height: 1.68; }
+            .team-epilogue { margin-top: 52px; line-height: 1.85; }
+
+            /* 数据卡：2×2，间距收紧一档更紧凑 */
+            .stats-grid { gap: 14px; margin-top: 30px; }
+            .stat-card { padding: 24px 14px; }
+            .stat-number { font-size: 27px; }
+            .stat-icon { font-size: 28px; }
+            .stat-label { font-size: 12.5px; }
+
+            /* 相册：加大格子，两列观感更饱满 */
+            .gallery-item { min-height: 150px; }
+
+            /* 灯箱关闭按钮：热区够大、避开刘海 */
+            .lightbox-close {
+                top: calc(8px + var(--sat)); right: 12px;
+                width: 48px; height: 48px; font-size: 32px;
+                display: flex; align-items: center; justify-content: center;
+            }
+            .lightbox-img { max-height: 78vh; border-radius: 10px; }
+
+            /* 页脚避开手势条 */
+            .footer { padding: 16px 5% calc(16px + var(--sab)); }
+        }
+
         /* ===== 平板增强（769–1024） ===== */
         @media (min-width: 769px) and (max-width: 1024px) {
-            .navbar { padding: 14px 8%; }
+            /* 三列竖排下容器比图更「竖」，图片按高缩放后横向溢出，可左右移动取景。
+               横向百分比：数值越【小】图片越往左推，露出画面越靠【左】的内容。
+               36% = 从居中位置向左移约 14% 的可裁宽度（820px 屏上约 182px）。 */
+            .home-img { object-position: 36% center !important; }
+            .navbar { --nav-pad: 16px; padding: 5px var(--nav-pad); }
             .logo { font-size: 22px; }
-            .nav-links { display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+            .logo-mark { font-size: 22px; }
+            /* --nav-glass: 0 —— 本断点起导航改为行内排布，不再是浮层面板，
+               关掉玻璃开关即无边框、无模糊、无圆角。 */
+            .nav-links { --nav-glass: 0; display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
                 max-height: none; opacity: 1; overflow: visible; pointer-events: auto; transition: none; }
-            .nav-links.open { flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+            .nav-links.open { --nav-glass: 0; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
                 max-height: none; opacity: 1; }
             .nav-links a { width: auto; }
             .nav-links a:hover, .nav-links a.active { color: #fff; background: linear-gradient(135deg, #e67e22, #f39c12); }
@@ -369,8 +706,9 @@
             .bg-themes { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .bg-theme-card { padding: 28px 22px; border-radius: 12px; border: 1px solid #eee; box-shadow: none; }
             .bg-theme-card:hover { transform: none; box-shadow: none; border-color: #ccc; }
-            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
-            .stat-card { padding: 24px 14px; border-radius: 12px; box-shadow: none; border: none; }
+            /* 平板宽度足够，四张卡一行排开；卡片更接近方形，比 2×2 的扁宽带更稳 */
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+            .stat-card { padding: 26px 12px; border-radius: var(--radius-sm); box-shadow: none; border: none; }
             .stat-card:hover { transform: translateY(-3px); }
             .stat-number { font-size: 28px; }
             .stat-icon { font-size: 28px; }
@@ -400,17 +738,30 @@
             .team-card h3 { font-size: 17px; }
             .team-card p { font-size: 14px; }
             .team-epilogue { font-size: 14px; margin-top: 80px; }
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+            /* 首页主标题：同一书法体，单行。平板可用宽约 660–880px；
+               6.6vw 在 769px 处约 51px（标题占可用宽 82%），1024px 处封顶 64px。 */
+            .home-text h1 {
+                font-size: clamp(44px, 6.6vw, 64px);
+                line-height: 1.3; letter-spacing: 1px;
+            }
+
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space); }
+            .gallery-item { min-height: 140px; }
             .gallery-item:hover { transform: scale(1.02); }
+            /* 9 位成员两列排列时最后一张居中，避免孤零零挂在一侧 */
+            .team-grid > .team-card:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: 420px; justify-self: center; }
         }
 
         @media (min-width: 1025px) {
             /* ===== 导航 & UI ===== */
-            .navbar { padding: 14px 8%; background: rgba(255,250,240,0.35); backdrop-filter: blur(40px) saturate(200%); -webkit-backdrop-filter: blur(40px) saturate(200%); border-bottom: 1px solid rgba(255,255,255,0.7); box-shadow: 0 2px 40px rgba(0,0,0,0.06); }
+            /* 胶囊形态：内边距压到最小，毛玻璃与圆角由 .navbar::before 统一承担 */
+            .navbar { --nav-pad: 20px; padding: 5px var(--nav-pad); }
             .logo { font-size: 22px; font-weight: 900; opacity: 0.85; }
-            .nav-links { display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+            .logo-mark { font-size: 22px; }
+            .nav-links { --nav-glass: 0; display: flex; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
                 max-height: none; opacity: 1; overflow: visible; pointer-events: auto; transition: none; }
-            .nav-links.open { flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
+            .nav-links.open { --nav-glass: 0; flex-direction: row; position: static; background: none; padding: 0; box-shadow: none;
                 max-height: none; opacity: 1; }
             .nav-links a { width: auto; position: relative; }
             .nav-links a::after {
@@ -438,33 +789,51 @@
             }
             .btn:hover::after { left: 100%; }
 
-            /* ===== Slide 0: 首页 — 左图右文 ===== */
+            /* ===== Slide 0: 首页（PC 与手机/平板同构：图片铺满 + 文字覆盖）=====
+               原为「左图右文」两栏，与手机/平板形态不一致；现统一为整屏图片 + 覆盖文字。
+               注意：这里**不能**再复位 position/background —— 基础层那套覆盖样式
+               同时服务三端，PC 只需调整字号与留白。 */
             .home-page0 {
-                flex-direction: row !important;
-                padding-top: 55px;
+                flex-direction: row !important;   /* 保留行向，使 .home-photos 横向铺满 */
+                padding-top: 0;                   /* 原 55px：图片延伸到胶囊之下 */
             }
-            .home-page0 > div:first-child { display: none; }
+            /* 原 `.home-page0 > div:first-child { display: none }` 已删除：
+               它针对的是那个 padding-top:55px 的占位块，该占位块已移除。 */
             .home-photos {
-                flex: 0 0 55% !important;
+                flex: 1 1 100% !important;        /* 原 0 0 52%：不再给文案区留栏位 */
                 display: flex !important;
-                flex-direction: column !important;
+                flex-direction: row !important;   /* 与基础层一致：三张图左右并排 */
             }
-            .home-photos > div { flex: 1 !important; min-height: 0 !important; }
+            .home-photos > div { flex: 1 1 0 !important; min-width: 0 !important; min-height: 0 !important; }
             .home-photos > div > div { display: none !important; }
+            /* 三列竖排下同样向左偏移取景，与平板保持一致 */
+            .home-img { object-position: 36% center !important; }
+            /* 原先用来把图片向右侧淡出、与文案区衔接的渐变，覆盖态下已无意义 */
             .home-photos > div::after {
                 content: ''; position: absolute; top: 0; right: 0;
                 width: 60%; height: 100%;
-                background: linear-gradient(to right, transparent 0%, #fdfbf7 100%);
+                background: none;
                 pointer-events: none; z-index: 1;
             }
+            /* PC 同样是覆盖式，仅调整留白与字号：
+               文案区不再占 48% 栏位，而是铺满整屏、内容下压到底部。 */
             .home-text {
-                flex: 0 0 45% !important;
-                text-align: left !important;
-                padding: 40px 5% !important;
-                display: flex; flex-direction: column; justify-content: center;
+                padding: 26vh 10% calc(84px + var(--sab)) !important;  /* 大屏留出更多渐变过渡 */
+                text-align: center !important;
             }
-            .home-text h1 { font-size: 62px !important; line-height: 1.15 !important; margin-bottom: 24px !important; }
-            .home-text p { font-size: 17px !important; margin-left: 0 !important; margin-right: 0 !important; max-width: 520px !important; }
+            /* 主标题：不再受 48% 容器宽度约束，可放得比原来更大。
+               实测 1920px 屏上 88px 仍为单行（标题宽约 866px，可用约 1760px）。 */
+            .home-text h1 { font-size: clamp(48px, 4.6vw, 88px) !important; line-height: 1.16 !important; margin-bottom: 28px !important; }
+            /* 段落：原先的 margin-left/right:0 + max-width 是旧「左对齐两栏」时代的写法——
+               在居中的覆盖态下会把段落压到容器左侧，造成「标题居中、段落偏左」的错位。
+               改为 auto 外边距居中，并放宽宽度上限（大屏 520px 过窄，一行字数太少）。 */
+            .home-text p {
+                font-size: 18px !important;
+                max-width: 760px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                line-height: 1.8 !important;
+            }
             #homeParticles { display: block !important; }
 
             .home-story {
@@ -650,7 +1019,8 @@
 
     <!-- 导航栏 -->
     <nav class="navbar" id="navbar">
-        <div class="logo"><i class="fa-solid fa-book-open"></i><span>沙海星火</span></div>
+        <i class="fa-solid fa-book-open logo-mark" aria-hidden="true"></i>
+        <div class="logo"><span>沙海星火</span></div>
         <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="nav-links" id="navLinks">
             <a href="#home" class="active" data-slide="0">首页</a>
@@ -669,23 +1039,23 @@
             <div class="slide" data-index="0" style="overflow:hidden;">
         <div id="homePages" style="transition:transform 0.7s cubic-bezier(0.65,0,0.35,1);">
         <div class="home-page0" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;">
-            <div style="padding-top:55px;flex-shrink:0;"></div>
+            <!-- 原有一个 padding-top:55px 的占位块，作用是给固定导航栏让位；
+                 去掉后图片铺到屏幕顶端，导航栏胶囊浮在图片之上。 -->
             <div class="home-photos" style="flex:1;display:flex;flex-direction:column;min-height:0;">
                 <div style="flex:1;min-height:0;position:relative;overflow:hidden;">
-                    <img src="images/home/bg.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
+                    <img class="home-img home-img-1" src="images/home/bg.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
                 </div>
                 <div style="flex:1;min-height:0;position:relative;overflow:hidden;">
-                    <img src="images/home/bg2.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
+                    <img class="home-img home-img-2" src="images/home/bg2.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
                 </div>
                 <div style="flex:1;min-height:0;position:relative;overflow:hidden;">
-                    <img src="images/home/bg3.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
-                    <div style="position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(to top,#fdfbf7,rgba(253,251,247,0.4),transparent);pointer-events:none;"></div>
+                    <img class="home-img home-img-3" src="images/home/bg3.webp" style="width:100%;height:100%;object-fit:cover;display:block;">
                 </div>
             </div>
-            <div class="home-text" style="padding:3vh 5% 2vh;text-align:center;flex-shrink:0;position:relative;overflow:hidden;overflow-y:auto;">
+            <div class="home-text" style="text-align:center;flex-shrink:0;">
                 <canvas id="homeParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none;"></canvas>
                 <div style="position:relative;z-index:1;">
-                <h1 style="font-size:30px;line-height:1.25;margin-bottom:8px;color:#1a1a2e;">以<span style="color:#ef4444;">爱</span>为火 · 点亮星河</h1>
+                <h1><span class="hl">以<span class="hl-accent">爱</span>为火 · 点亮星河</span></h1>
                 <p style="font-size:13px;color:#555;line-height:1.7;max-width:520px;margin:0 auto 14px;">心路实践团沙海星火小队奔赴宁夏中卫市中宁县石空镇关帝村，走进民间爱心小院。这里集中照料着有着心理困境的儿童——他们渴望的不只是知识，更是情感重建与生命赋能。十名志愿者以持续性陪伴，拓展课外知识，为困境儿童撑起一片成长的天空。</p>
                 </div>
             </div>
@@ -942,6 +1312,114 @@
                 </div>
             </div>
 
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月3日</div>
+                    <h3>踏遍乡间传善意，微光聚力助成长</h3>
+                    <ul>
+                        <li>随张妈妈走出爱心小院，深入乡间村落开展暖心家访，精心筹备生活物资逐户送达</li>
+                        <li>入户帮扶：主动清扫居所、整理杂物，改善孩子们简陋的居住环境</li>
+                        <li>一户满墙奖状令人动容——少年自幼失怙与奶奶相依，历经磨难仍笃学奋进、向阳而生</li>
+                        <li>遇见一位与病痛抗争的孩子：先天神经系统疾病致双手颤抖，却执着执笔作画，用色彩描摹美好</li>
+                        <li>走访一户特殊家庭，为孩子送去生活用品——每个生命都值得尊重与偏爱</li>
+                    </ul>
+                    <span class="diary-tag">🤝 暖心家访</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月4日</div>
+                    <h3>乐韵润童心，童趣赴盛夏</h3>
+                    <ul>
+                        <li>音乐美育课（高老师）：讲解基础乐理，拆解节奏与韵律，让孩子读懂音符的灵动</li>
+                        <li>乐器科普：从传统民族乐器到经典西洋乐器，了解不同音色与文化底蕴</li>
+                        <li>陶笛体验（殷老师）：分发陶笛，练习手势、气息与音阶，古朴空灵的音色绕满山野</li>
+                        <li>课后孩子们爱不释手，两两结伴互相探讨，课余处处回荡清脆陶笛声</li>
+                        <li>午后趣味吃西瓜大赛：团队比拼加个人单挑，加油声与欢笑声此起彼伏，师生同乐</li>
+                    </ul>
+                    <span class="diary-tag">🎵 音乐日</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月5日</div>
+                    <h3>骄阳逐赛场，拼搏竞锋芒</h3>
+                    <ul>
+                        <li>爱心小院趣味运动会开幕，分上午力量竞技与下午趣味协作两大篇章</li>
+                        <li>上午竞技：100米短跑如离弦之箭、立定跳远蓄力腾空、一分钟跳绳彩绳翻飞</li>
+                        <li>"我再试一次！"成了赛场高频语——不怕失败、敢于再来</li>
+                        <li>下午趣味协作：投壶、保龄足球、双人夹气球赛跑、两人三足、乒乓球五项轮番上阵</li>
+                        <li>背靠着背，心连着心：名次会被忘记，但拼搏的勇气与合作的快乐会留下</li>
+                    </ul>
+                    <span class="diary-tag">🏅 趣味运动会</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月6日</div>
+                    <h3>踏塞上山河启智，携非遗文脉润心</h3>
+                    <ul>
+                        <li>乡土地理课：从"宁夏恰似一枚温润的宝葫芦"开篇，讲六盘山、腾格里沙海与银川平原</li>
+                        <li>千年引黄润土：全国唯一全境隶属黄河流域的省区，借"硒砂瓜甘甜"讲昼夜温差与光合作用</li>
+                        <li>放眼九州：三级地势阶梯、秦岭淮河分界，北国漠河寒雪与南国三亚碧海对照</li>
+                        <li>山河文脉：西夏文脉、回族开斋节、六盘山长征壮志、丝路驼铃；"地理小火车"接龙游戏</li>
+                        <li>联动北京科技大学"青衿泽稚"团队云端课堂：讲鱼灯舞六百年传承与剪纸文脉（2009年入选人类非遗名录）</li>
+                    </ul>
+                    <span class="diary-tag">🗺️ 地理非遗</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月7日</div>
+                    <h3>以光影疗愈童心，以科创点亮梦想</h3>
+                    <ul>
+                        <li>清晨心灵成长课堂：为孩子们播放动画电影《头脑特工队2》，走进情绪的奇妙世界</li>
+                        <li>借影片中多样的情绪设定温柔引导——认识焦虑、开心、害羞、烦躁，学会接纳情绪、与自己和解</li>
+                        <li>午后携手"物拓灵犀实践团"开展跨团队联动课堂，带来团队自主研发的机械臂实物</li>
+                        <li>队员展示机械臂运作效果，讲解构造特点与核心原理，孩子们眼中满是好奇与惊叹</li>
+                        <li>延伸科普工业流水线加工与图像识别技术，把机械智能、工业生产、人工智能串联起来</li>
+                    </ul>
+                    <span class="diary-tag">🤖 光影科创</span>
+                </div>
+            </div>
+
+            <div class="diary-card">
+                <div class="diary-photo">
+                    <div class="diary-photo-placeholder"><i class="fa-solid fa-image"></i><span>待添加照片</span></div>
+                </div>
+                <div class="diary-body">
+                    <div class="diary-date">8月8日</div>
+                    <h3>彩绳系童心，运动展风采</h3>
+                    <ul>
+                        <li>编彩绳结手工课：中国结源自远古结绳记事，"结"与"吉"谐音，寄托平安幸福的美好祈愿</li>
+                        <li>从平结、金刚结到寓意"福禄寿喜财"的五福结，孩子们认真学习每一种绳结的匠心</li>
+                        <li>亲手编织：五颜六色的丝线在指尖穿梭，最终完成手链、挂饰，有的说要带回家送给爷爷奶奶</li>
+                        <li>午后球类大联欢：羽毛球、足球、篮球、乒乓球四大项目轮番上阵</li>
+                        <li>足球友谊赛有"乌龙球"的搞笑场面，更有进球欢呼与失球互勉；篮球架下从三不沾到投进第一球</li>
+                    </ul>
+                    <span class="diary-tag">🧵 彩绳体育</span>
+                </div>
+            </div>
+
         </div>
     </section>
             </div><!-- /slide 2 -->
@@ -1147,6 +1625,10 @@
                 particles = []; ctx.clearRect(0, 0, w, h);
             }
             start();
+            // 标签页不可见时停掉动画，避免后台空耗 GPU/CPU
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) stop(); else if (!animId) start();
+            });
             let rt;
             window.addEventListener('resize', () => {
                 clearTimeout(rt);
@@ -1205,6 +1687,9 @@
                 if (window.innerWidth < 1025) { stop(); return; }
                 resize(); init(50); loop();
             }
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) stop(); else if (!animId) start();
+            });
             function stop() {
                 if (animId) { cancelAnimationFrame(animId); animId = null; }
                 particles = [];
@@ -1370,21 +1855,62 @@
             document.addEventListener('click', requestOrientation, { once: true });
             document.addEventListener('touchstart', requestOrientation, { once: true });
 
-            // 动画循环
-            function tick() {
-                currentX += (targetX - currentX) * 0.08;
-                currentY += (targetY - currentY) * 0.08;
-                if (Math.abs(currentX) < 0.001 && Math.abs(currentY) < 0.001) currentX = currentY = 0;
+            // 动画循环。三点优化，直接决定页面帧率：
+            //  1) 静止时停止：原实现每帧无条件写 transform（哪怕鼠标没动），
+            //     而 backdrop-filter 会因背后内容变化每帧重算模糊，二者叠加是卡顿主因；
+            //  2) 不再调 matches(':hover')：它会强制同步布局，每帧 9 次；
+            //  3) 每张卡缓存上次写入值，未变化则跳过，避免无谓的样式重算。
+            const last = new WeakMap();
+            const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let running = false, lastFrame = 0;
 
+            // 悬停状态改用事件维护：原实现每帧调 matches(':hover') 会强制同步布局
+            const hovering = new WeakSet();
+            cards.forEach(c => {
+                c.addEventListener('pointerenter', () => hovering.add(c), { passive: true });
+                c.addEventListener('pointerleave', () => hovering.delete(c), { passive: true });
+            });
+
+            function tick(now) {
+                running = true;
+                if (now - lastFrame < 32) { requestAnimationFrame(tick); return; }  // 限到约 30fps
+                lastFrame = now;
+
+                currentX += (targetX - currentX) * 0.12;
+                currentY += (targetY - currentY) * 0.12;
+                if (Math.abs(targetX - currentX) < 0.002) currentX = targetX;
+                if (Math.abs(targetY - currentY) < 0.002) currentY = targetY;
+
+                const slide = slides[current];
                 cards.forEach(c => {
-                    if (c.matches(':hover')) return;
+                    // 只动当前可见页的卡片（其余页的 transform 无意义）
+                    if (slide && !slide.contains(c)) return;
+                    // 悬停时交给 CSS 的 :hover 效果，不叠加视差
+                    if (hovering.has(c)) return;
                     const s = +(c.dataset.tiltStrength || 5);
-                    c.style.transform = `perspective(800px) rotateX(${currentY * s * -1}deg) rotateY(${currentX * s}deg)`;
+                    const v = 'perspective(800px) rotateX(' + (currentY * s * -1) + 'deg) rotateY(' + (currentX * s) + 'deg)';
+                    if (last.get(c) === v) return;
+                    last.set(c, v);
+                    c.style.transform = v;
                 });
 
+                // 已停在目标值则结束循环；下次输入再启动
+                if (currentX === targetX && currentY === targetY) { running = false; return; }
                 requestAnimationFrame(tick);
             }
-            tick();
+
+            // 仅在输入或首帧时唤醒，避免空转
+            let kickTimer = 0;
+            function kick() {
+                if (running || reduced) return;
+                const t = performance.now();
+                if (t - kickTimer < 40) return;
+                kickTimer = t;
+                requestAnimationFrame(tick);
+            }
+            document.addEventListener('mousemove', kick, { passive: true });
+            window.addEventListener('deviceorientation', kick, { passive: true });
+            kick();
         })();
 
         // 触屏/鼠标拖拽
