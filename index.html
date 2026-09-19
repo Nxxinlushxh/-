@@ -1979,11 +1979,15 @@
                 const top = !story || story.scrollTop <= 0;
                 const bottom = !story || (story.scrollTop + story.clientHeight >= story.scrollHeight - 2);
                 const overflow = story ? story.scrollHeight > story.clientHeight + 1 : false;
+                /* 方向与页面滚动一致：内容跟手走。
+                   dy < 0 = 手指上滑 → 内容上移 → 前进（第一页→故事页，故事页→背景页）
+                   dy > 0 = 手指下滑 → 内容下移 → 后退（故事页→第一页）
+                   注意 dy 是「手指位移」，不是滚动方向，别与 deltaY 的语义混淆。 */
                 if (homePage === 0) {
-                    if (dy > FLIP_THRESHOLD) { touchLocked = true; flipHomePage(1); }
+                    if (dy < -FLIP_THRESHOLD) { touchLocked = true; flipHomePage(1); }
                 } else {
-                    if (dy > FLIP_THRESHOLD && (!overflow || bottom)) { touchLocked = true; goToSlide(1); }
-                    else if (dy < -FLIP_THRESHOLD && top) { touchLocked = true; flipHomePage(-1); }
+                    if (dy < -FLIP_THRESHOLD && (!overflow || bottom)) { touchLocked = true; goToSlide(1); }
+                    else if (dy > FLIP_THRESHOLD && top) { touchLocked = true; flipHomePage(-1); }
                 }
             } else {
                 const atTop = slide.scrollTop <= 0;
